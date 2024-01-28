@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -14,12 +16,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.SystemColor;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import java.awt.Color;
 
 public class login_page extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField emailField;
 	private JPasswordField passwordField;
 
 	/**
@@ -45,6 +50,7 @@ public class login_page extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 914, 504);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(240, 240, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -53,39 +59,49 @@ public class login_page extends JFrame {
 		JLabel lblNewLabel = new JLabel("Course Management System");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 22));
-		lblNewLabel.setBounds(310, 10, 347, 62);
+		lblNewLabel.setBounds(61, 10, 347, 62);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Login Here");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(416, 100, 119, 29);
+		lblNewLabel_1.setBounds(168, 82, 119, 29);
 		contentPane.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(401, 169, 237, 29);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		emailField = new JTextField();
+		emailField.setBounds(111, 169, 237, 29);
+		contentPane.add(emailField);
+		emailField.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Email:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_2.setBounds(339, 174, 52, 13);
+		lblNewLabel_2.setBounds(49, 174, 52, 13);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Password:");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_2_1.setBounds(315, 233, 76, 13);
+		lblNewLabel_2_1.setBounds(25, 228, 76, 13);
 		contentPane.add(lblNewLabel_2_1);
 		
 		JButton btnNewButton = new JButton("login");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String emailText = new String(emailField.getText()); 
+		        String PasswordText = new String(passwordField.getPassword()); 
+				if (emailText.isEmpty() || PasswordText.isEmpty() ) {
+	                JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
+	                return;
+	            }
+			}
+		});
 		btnNewButton.setForeground(SystemColor.window);
 		btnNewButton.setBackground(SystemColor.desktop);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(457, 281, 108, 39);
+		btnNewButton.setBounds(181, 273, 95, 29);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("Don't have Account ?");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_3.setBounds(401, 350, 157, 39);
+		lblNewLabel_3.setBounds(93, 350, 157, 39);
 		contentPane.add(lblNewLabel_3);
 		
 		JButton btnNewButton_1 = new JButton("SignUp");
@@ -94,15 +110,38 @@ public class login_page extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				projectno1 lp = new projectno1();
+				signup_page lp = new signup_page();
             	lp.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(557, 359, 70, 23);
+		btnNewButton_1.setBounds(253, 359, 70, 23);
 		contentPane.add(btnNewButton_1);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(401, 223, 237, 29);
+		passwordField.setBounds(111, 223, 237, 29);
 		contentPane.add(passwordField);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\Surendra\\eclipse-workspace\\Tutorial\\src\\FinalPortfolio\\images\\3.png"));
+		lblNewLabel_4.setBounds(462, 105, 376, 299);
+		contentPane.add(lblNewLabel_4);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("show");
+		chckbxNewCheckBox.setBounds(354, 227, 65, 21);
+		contentPane.add(chckbxNewCheckBox);
+		
+		// ActionListener for the "show" checkBox for password
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (chckbxNewCheckBox.isSelected()) {
+		        	passwordField.setEchoChar((char) 0); // Show password
+		        } else {
+		        	passwordField.setEchoChar('*'); // Hide password
+		        }
+		    }
+		});
+		
+		
 	}
 }

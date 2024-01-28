@@ -1,4 +1,5 @@
 package FinalPortfolio;
+import java.sql.*;
 import java.util.regex.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -28,8 +29,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
-public class projectno1 extends JFrame {
+public class signup_page extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -49,7 +52,7 @@ public class projectno1 extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    projectno1 frame = new projectno1();
+                    signup_page frame = new signup_page();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -58,72 +61,72 @@ public class projectno1 extends JFrame {
         });
     }
 
-    public projectno1() {
+    public signup_page() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 975, 763);
+        setBounds(100, 100, 975, 600);
         contentPane = new JPanel();
-        contentPane.setBackground(SystemColor.activeCaption);
+        contentPane.setBackground(new Color(240, 240, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
         firstname = new JTextField();
-        firstname.setBounds(185, 173, 317, 38);
+        firstname.setBounds(158, 81, 317, 30);
         firstname.setToolTipText("");
         contentPane.add(firstname);
         firstname.setColumns(10);
         
         lastname = new JTextField();
-        lastname.setBounds(632, 173, 268, 38);
+        lastname.setBounds(158, 116, 268, 30);
         lastname.setToolTipText("");
         lastname.setColumns(10);
         contentPane.add(lastname);
         
         eMAIL = new JTextField();
-        eMAIL.setBounds(185, 260, 317, 38);
+        eMAIL.setBounds(158, 229, 317, 30);
         contentPane.add(eMAIL);
         eMAIL.setColumns(10);
         
-        JLabel heading = new JLabel("WELCOME TO COURSE MANAGEMENT SYSTEM");
-        heading.setBounds(158, 10, 742, 71);
+        JLabel heading = new JLabel(" COURSE MANAGEMENT SYSTEM");
+        heading.setBounds(340, 0, 376, 52);
         heading.setBackground(new Color(128, 128, 0));
-        heading.setFont(new Font("Tahoma", Font.BOLD, 30));
+        heading.setFont(new Font("Tahoma", Font.BOLD, 20));
         contentPane.add(heading);
         
         FIRSTNAME = new JLabel("FIRST NAME:");
-        FIRSTNAME.setBounds(69, 171, 98, 37);
+        FIRSTNAME.setBounds(69, 79, 98, 37);
         FIRSTNAME.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(FIRSTNAME);
         
         LASTNAME = new JLabel("LAST NAME:");
-        LASTNAME.setBounds(541, 171, 81, 37);
+        LASTNAME.setBounds(70, 110, 81, 37);
         LASTNAME.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(LASTNAME);
         
         gender = new JLabel("GENDER:");
-        gender.setBounds(89, 218, 61, 37);
+        gender.setBounds(89, 149, 61, 37);
         gender.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(gender);
         
         JLabel email = new JLabel("EMAIL:");
-        email.setBounds(99, 258, 51, 37);
+        email.setBounds(100, 223, 51, 37);
         email.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(email);
         
         JLabel PASSWORD = new JLabel("PASSWORD:");
-        PASSWORD.setBounds(69, 326, 81, 37);
+        PASSWORD.setBounds(69, 270, 81, 37);
         PASSWORD.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(PASSWORD);
         
         JLabel CONFIRM_PASSWORD = new JLabel("CONFIRM PASSWORD:");
-        CONFIRM_PASSWORD.setBounds(10, 383, 153, 37);
+        CONFIRM_PASSWORD.setBounds(10, 310, 153, 37);
         CONFIRM_PASSWORD.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(CONFIRM_PASSWORD);
         
         ButtonGroup genderGroup = new ButtonGroup();
         
         JRadioButton rdbtnNewRadioButton = new JRadioButton("Male");
-        rdbtnNewRadioButton.setBounds(184, 228, 61, 21);
+        rdbtnNewRadioButton.setBounds(168, 157, 61, 21);
         rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(rdbtnNewRadioButton);
         genderGroup.add(rdbtnNewRadioButton);
@@ -134,7 +137,7 @@ public class projectno1 extends JFrame {
         });
         
         JRadioButton rdbtnFemale = new JRadioButton("Female");
-        rdbtnFemale.setBounds(265, 228, 81, 21);
+        rdbtnFemale.setBounds(231, 157, 81, 21);
         rdbtnFemale.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(rdbtnFemale);
         genderGroup.add(rdbtnFemale);
@@ -145,24 +148,24 @@ public class projectno1 extends JFrame {
         });
         
         JLabel BIRTHDATE = new JLabel("DATE OF BIRTH:");
-        BIRTHDATE.setBounds(512, 218, 109, 37);
+        BIRTHDATE.setBounds(41, 180, 109, 37);
         BIRTHDATE.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(BIRTHDATE);
 
         dateChooser = new JDateChooser();
-        dateChooser.setBounds(632, 218, 270, 30);
+        dateChooser.setBounds(158, 184, 270, 30);
         contentPane.add(dateChooser);
         
         password = new JPasswordField();
-        password.setBounds(185, 325, 317, 38);
+        password.setBounds(158, 276, 317, 30);
         contentPane.add(password);
         
         confirm_password = new JPasswordField();
-        confirm_password.setBounds(185, 382, 317, 38);
+        confirm_password.setBounds(158, 316, 317, 30);
         contentPane.add(confirm_password);
         
         JButton signupBtn = new JButton("SIGNUP");
-        signupBtn.setBounds(212, 501, 98, 38);
+        signupBtn.setBounds(180, 420, 98, 32);
         signupBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
@@ -212,32 +215,41 @@ public class projectno1 extends JFrame {
                 System.out.println("SelectMode: "+selectMode);
                 System.out.println("passNew: " + passNew);
                 System.out.println("Passwords match: " + passwordText.equals(confirmPasswordText));
-
-                if (genderSelectionText == null || genderSelectionText.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please select a gender.");
-                    return;
-                }
-                if (selectMode == "Student") {
-                	JOptionPane.showMessageDialog(null, "Sign Up success");
-                	
-                }else if(selectMode == "Admin") {
-                	JOptionPane.showMessageDialog(null, "Sign Up success");
-                	
-                }else if(selectMode == "Teacher") {
-                	JOptionPane.showMessageDialog(null, "Sign Up success");
-                	
-                }else {
-                	JOptionPane.showMessageDialog(null, "Please Select the Mode");
-                	return;
-                }
-
-                if (!firstNameText.equals("") && !lastNameText.equals("") && !selectMode.equals("") && genderSelectionText != null && !emailText.equals("") && !passwordText.equals("") && !confirmPasswordText.equals("")) {
+                
+                if (firstNameText.isEmpty() || lastNameText.isEmpty() || genderSelectionText.isEmpty() ||
+                        emailText.isEmpty() || passwordText.isEmpty() || confirmPasswordText.isEmpty() || selectMode.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
+                        return;
+                    }
+                
+                if (!firstNameText.equals("") && !lastNameText.equals("") && selectMode != "" && genderSelectionText != null && !emailText.equals("") && !passwordText.equals("") && !confirmPasswordText.equals("")) {
                     if (fname && lname && Emailcheck && passNew && passwordText.equals(confirmPasswordText)) {
                         JOptionPane.showMessageDialog(null, "Sign Up success");
                         System.out.println("Successfully Executed!");
                     } else {
                         JOptionPane.showMessageDialog(null, "Invalid Input. Please check the Entered Values.");
                     }
+                }
+                
+                if (genderSelectionText == null || genderSelectionText.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please select a gender.");
+                    return;
+                }
+                if (selectMode == "Student" || selectMode == "Admin" || selectMode == "Teacher" ) {
+                	JOptionPane.showMessageDialog(null, "Sign Up success");
+                	
+                }else {
+                	JOptionPane.showMessageDialog(null, "Please Select the Mode");
+                	return;
+                }
+                
+                try (Connection connection = Database.getConnection()) {
+                    // Insert signup data into the database
+                    // You need to implement the insertSignupData method in your Database class
+                    // Example: Database.insertSignupData(connection, firstName, lastName, email, password, selectedGender, selectedMode);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to connect to the database.");
                 }
             }
         });
@@ -246,8 +258,8 @@ public class projectno1 extends JFrame {
         signupBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(signupBtn);
         
-        JButton LOGIN = new JButton("LOGIN");
-        LOGIN.setBounds(367, 501, 98, 38);
+        JButton LOGIN = new JButton("CANCEL");
+        LOGIN.setBounds(340, 420, 98, 32);
         LOGIN.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
@@ -259,14 +271,59 @@ public class projectno1 extends JFrame {
         
         
         comboBox = new JComboBox();
-        comboBox.setBounds(185, 442, 317, 38);
+        comboBox.setBounds(158, 357, 317, 38);
         comboBox.setFont(new Font("Tahoma", Font.BOLD, 13));
         comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Select Options-- ", "Student", "Teacher", "Admin"}));
         contentPane.add(comboBox);
         
         JLabel selectMode = new JLabel("Select Mode:");
-        selectMode.setBounds(69, 455, 95, 14);
+        selectMode.setBounds(56, 368, 95, 14);
         selectMode.setFont(new Font("Tahoma", Font.PLAIN, 16));
         contentPane.add(selectMode);
+        
+        JLabel lblNewLabel = new JLabel("New label");
+        lblNewLabel.setBounds(582, 81, 358, 366);
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Surendra\\eclipse-workspace\\Tutorial\\src\\FinalPortfolio\\images\\3.png"));
+        contentPane.add(lblNewLabel);
+        
+        JCheckBox chckbxNewCheckBox = new JCheckBox("show");
+        chckbxNewCheckBox.setBounds(481, 280, 60, 21);
+        contentPane.add(chckbxNewCheckBox);
+        
+     // ActionListener for the "show" checkbox for password
+        chckbxNewCheckBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (chckbxNewCheckBox.isSelected()) {
+                    password.setEchoChar((char) 0); // Show password
+                } else {
+                    password.setEchoChar('*'); // Hide password
+                }
+            }
+        });
+        
+        JCheckBox chckbxNewCheckBox_1 = new JCheckBox("show");
+        chckbxNewCheckBox_1.setBounds(481, 320, 60, 21);
+        contentPane.add(chckbxNewCheckBox_1);
+        
+        JLabel lblNewLabel_1 = new JLabel("Signup Page");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+        lblNewLabel_1.setBounds(208, 41, 128, 30);
+        contentPane.add(lblNewLabel_1);
+        
+     // ActionListener for the "show" checkbox for Confirm_password
+        chckbxNewCheckBox_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (chckbxNewCheckBox_1.isSelected()) {
+                    confirm_password.setEchoChar((char) 0); // Show password
+                } else {
+                	confirm_password.setEchoChar('*'); // Hide password
+                }
+            }
+        });
     }
-}
+    
+    private void saveDataToDatabase(String firstName, String lastName, String gender, String email, String password, String confirmPassword, String selectMode) {
+    	
+    }
+}   
