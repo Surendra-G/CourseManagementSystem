@@ -267,7 +267,7 @@ public class signup_page extends JFrame {
                 if (selectMode.equals("Teacher")){
 	                try (Connection connection = database.getConnection()) {
 	                    // Insert signup data into the "Students" table
-	                    String insertUserQuery = "INSERT INTO Teacher (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+	                    String insertUserQuery = "INSERT INTO Teachers (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
 	                    try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
 	                    	statement.setString(1, firstNameText);
 	                        statement.setString(2, lastNameText);

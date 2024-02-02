@@ -97,7 +97,7 @@ public class login_page extends JFrame {
 	                JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
 	                return;
 	            }
-				if (selectMode == "Student" || selectMode == "Admin" || selectMode == "Teacher" ) {
+				if (selectMode == "students" || selectMode == "admin" || selectMode == "teachers" ) {
                 	JOptionPane.showMessageDialog(null, "Sign Up success");
                 	
                 }else {
@@ -113,18 +113,19 @@ public class login_page extends JFrame {
 				        statement.setString(2, PasswordText);
 				        try (ResultSet resultSet = statement.executeQuery()) {
 				            if (resultSet.next()) {
-				                // User exists, redirect to dashboard
-				                // Implement redirection logic here based on selectMode
 				                String userType = resultSet.getString("UserType"); // Assuming you have a column UserType in each user table
 				                switch (userType) {
 				                    case "Admin":
-				                        // Redirect to admin dashboard
+				                    	dashboard db_Admin = new dashboard();
+				                    	db_Admin.setVisible(true);
 				                        break;
 				                    case "Student":
-				                        // Redirect to student dashboard
+				                    	dashboard db_Student = new dashboard();
+				                    	db_Student.setVisible(true);
 				                        break;
 				                    case "Teacher":
-				                        // Redirect to teacher dashboard
+				                    	dashboard db_Teacher = new dashboard();
+				                    	db_Teacher.setVisible(true);
 				                        break;
 				                    default:
 				                        // Handle unknown user type
@@ -184,7 +185,7 @@ public class login_page extends JFrame {
 		comboBox = new JComboBox();
         comboBox.setBounds(111, 262, 237, 29);
         comboBox.setFont(new Font("Tahoma", Font.BOLD, 13));
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Select Options-- ", "Student", "Teacher", "Admin"}));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Select Options-- ", "students", "teachers", "admin"}));
         contentPane.add(comboBox);
         
         JLabel selectMode = new JLabel("Select Mode:");
