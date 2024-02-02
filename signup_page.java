@@ -1,4 +1,5 @@
 package FinalPortfolio;
+import FinalPortfolio.database;
 import java.sql.*;
 import java.util.regex.*;
 import java.awt.BorderLayout;
@@ -7,8 +8,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -44,7 +43,7 @@ public class signup_page extends JFrame {
     private JLabel gender;
     private JPasswordField password;
     private JPasswordField confirm_password;
-    private JDateChooser dateChooser;
+    private JTextField ageTextField; 
     private String selectedGender = "";
     private JComboBox comboBox;
 
@@ -77,7 +76,7 @@ public class signup_page extends JFrame {
         firstname.setColumns(10);
         
         lastname = new JTextField();
-        lastname.setBounds(158, 116, 268, 30);
+        lastname.setBounds(158, 116, 317, 30);
         lastname.setToolTipText("");
         lastname.setColumns(10);
         contentPane.add(lastname);
@@ -107,6 +106,10 @@ public class signup_page extends JFrame {
         gender.setBounds(89, 149, 61, 37);
         gender.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(gender);
+        
+        JTextField ageTextField = new JTextField();
+        ageTextField.setBounds(158, 184, 81, 30);
+        contentPane.add(ageTextField);
         
         JLabel email = new JLabel("EMAIL:");
         email.setBounds(100, 223, 51, 37);
@@ -147,14 +150,10 @@ public class signup_page extends JFrame {
             }
         });
         
-        JLabel BIRTHDATE = new JLabel("DATE OF BIRTH:");
-        BIRTHDATE.setBounds(41, 180, 109, 37);
+        JLabel BIRTHDATE = new JLabel("AGE:");
+        BIRTHDATE.setBounds(114, 180, 37, 37);
         BIRTHDATE.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(BIRTHDATE);
-
-        dateChooser = new JDateChooser();
-        dateChooser.setBounds(158, 184, 270, 30);
-        contentPane.add(dateChooser);
         
         password = new JPasswordField();
         password.setBounds(158, 276, 317, 30);
@@ -165,13 +164,14 @@ public class signup_page extends JFrame {
         contentPane.add(confirm_password);
         
         JButton signupBtn = new JButton("SIGNUP");
-        signupBtn.setBounds(180, 420, 98, 32);
+        signupBtn.setBounds(200, 420, 95, 32);
         signupBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
                 String firstNameText = firstname.getText();
                 String lastNameText = lastname.getText();
                 String genderSelectionText = selectedGender;
+                String ageText = ageTextField.getText().trim();
                 String emailText = eMAIL.getText();
                 String passwordText = new String(password.getPassword()); 
                 String confirmPasswordText = new String(confirm_password.getPassword()); 
@@ -211,46 +211,98 @@ public class signup_page extends JFrame {
                 System.out.println("fname: " + fname);
                 System.out.println("lname: " + lname);
                 System.out.println("Selected Gender: " + selectedGender);
+                System.out.println("Age: " + ageText);
                 System.out.println("Emailcheck: " + Emailcheck);
                 System.out.println("SelectMode: "+selectMode);
                 System.out.println("passNew: " + passNew);
                 System.out.println("Passwords match: " + passwordText.equals(confirmPasswordText));
                 
-                if (firstNameText.isEmpty() || lastNameText.isEmpty() || genderSelectionText.isEmpty() ||
+                if (firstNameText.isEmpty() || lastNameText.isEmpty() || genderSelectionText.isEmpty() || ageText.isEmpty() ||
                         emailText.isEmpty() || passwordText.isEmpty() || confirmPasswordText.isEmpty() || selectMode.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
                         return;
                     }
                 
-                if (!firstNameText.equals("") && !lastNameText.equals("") && selectMode != "" && genderSelectionText != null && !emailText.equals("") && !passwordText.equals("") && !confirmPasswordText.equals("")) {
+                if (!firstNameText.equals("") && !lastNameText.equals("") && !genderSelectionText.isEmpty() && !ageText.equals("")  && !emailText.equals("") && !passwordText.equals("") && !confirmPasswordText.equals("") && !selectMode.equals("--Select Options-- ")) {
                     if (fname && lname && Emailcheck && passNew && passwordText.equals(confirmPasswordText)) {
                         JOptionPane.showMessageDialog(null, "Sign Up success");
                         System.out.println("Successfully Executed!");
                     } else {
                         JOptionPane.showMessageDialog(null, "Invalid Input. Please check the Entered Values.");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
                 }
                 
-                if (genderSelectionText == null || genderSelectionText.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please select a gender.");
+                //converting the ageText into Integers
+                int age;
+                try {
+                    age = Integer.parseInt(ageText);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid integer for age.");
                     return;
                 }
-                if (selectMode == "Student" || selectMode == "Admin" || selectMode == "Teacher" ) {
-                	JOptionPane.showMessageDialog(null, "Sign Up success");
-                	
-                }else {
-                	JOptionPane.showMessageDialog(null, "Please Select the Mode");
-                	return;
+                
+                //for database connection for student
+                if (selectMode.equals("Student")){
+	                try (Connection connection = database.getConnection()) {
+	                    // Insert signup data into the "Students" table
+	                    String insertUserQuery = "INSERT INTO Students (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+	                    try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
+	                        statement.setString(1, firstNameText);
+	                        statement.setString(2, lastNameText);
+	                        statement.setString(3, genderSelectionText);
+	                        statement.setInt(4, age);
+	                        statement.setString(5, emailText);
+	                        statement.setString(6, passwordText);
+	                        statement.executeUpdate();
+	                    }
+	                } catch (SQLException ex) {
+	                    ex.printStackTrace();
+	                    JOptionPane.showMessageDialog(null, "Failed to connect to the database.");
+	                }
                 }
                 
-                try (Connection connection = Database.getConnection()) {
-                    // Insert signup data into the database
-                    // You need to implement the insertSignupData method in your Database class
-                    // Example: Database.insertSignupData(connection, firstName, lastName, email, password, selectedGender, selectedMode);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Failed to connect to the database.");
+              //for database connection for Teacher
+                if (selectMode.equals("Teacher")){
+	                try (Connection connection = database.getConnection()) {
+	                    // Insert signup data into the "Students" table
+	                    String insertUserQuery = "INSERT INTO Teacher (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+	                    try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
+	                    	statement.setString(1, firstNameText);
+	                        statement.setString(2, lastNameText);
+	                        statement.setString(3, genderSelectionText);
+	                        statement.setInt(4, age);
+	                        statement.setString(5, emailText);
+	                        statement.setString(6, passwordText);
+	                        statement.executeUpdate();
+	                    }
+	                } catch (SQLException ex) {
+	                    ex.printStackTrace();
+	                    JOptionPane.showMessageDialog(null, "Failed to connect to the database.");
+	                }
                 }
+                
+              //for database connection for Admin
+                if (selectMode.equals("Admin")){
+	                try (Connection connection = database.getConnection()) {
+	                    // Insert signup data into the "Admin" table
+	                    String insertUserQuery = "INSERT INTO Admin (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+	                    try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
+	                    	statement.setString(1, firstNameText);
+	                        statement.setString(2, lastNameText);
+	                        statement.setString(3, genderSelectionText);
+	                        statement.setInt(4, age);
+	                        statement.setString(5, emailText);
+	                        statement.setString(6, passwordText);
+	                        statement.executeUpdate();
+	                    }
+	                } catch (SQLException ex) {
+	                    ex.printStackTrace();
+	                    JOptionPane.showMessageDialog(null, "Failed to connect to the database.");
+	                }
+                }
+
             }
         });
         signupBtn.setForeground(SystemColor.window);
@@ -259,9 +311,10 @@ public class signup_page extends JFrame {
         contentPane.add(signupBtn);
         
         JButton LOGIN = new JButton("CANCEL");
-        LOGIN.setBounds(340, 420, 98, 32);
+        LOGIN.setBounds(315, 420, 95, 32);
         LOGIN.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
         	}
         });
         LOGIN.setForeground(SystemColor.window);
@@ -280,6 +333,24 @@ public class signup_page extends JFrame {
         selectMode.setBounds(56, 368, 95, 14);
         selectMode.setFont(new Font("Tahoma", Font.PLAIN, 16));
         contentPane.add(selectMode);
+        
+        JLabel lblNewLabel_3 = new JLabel("Already have Account ?");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(179, 467, 170, 39);
+		contentPane.add(lblNewLabel_3);
+		
+		JButton btnNewButton_1 = new JButton("LOGIN");
+		btnNewButton_1.setForeground(SystemColor.window);
+		btnNewButton_1.setBackground(SystemColor.textHighlight);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				login_page lp = new login_page();
+            	lp.setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(356, 476, 70, 23);
+		contentPane.add(btnNewButton_1);
         
         JLabel lblNewLabel = new JLabel("New label");
         lblNewLabel.setBounds(582, 81, 358, 366);
@@ -321,9 +392,5 @@ public class signup_page extends JFrame {
                 }
             }
         });
-    }
-    
-    private void saveDataToDatabase(String firstName, String lastName, String gender, String email, String password, String confirmPassword, String selectMode) {
-    	
     }
 }   
