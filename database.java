@@ -27,7 +27,7 @@ public class database {
             try (PreparedStatement statement = connection.prepareStatement(useDatabaseQuery)) {
                 statement.executeUpdate();
             }
-            // Creating the Students table if it doesn't exist in the database
+         // Creating the Students table if it doesn't exist in the database
             String createStudentsTableQuery = "CREATE TABLE IF NOT EXISTS Students ("
                     + "StudentID INT AUTO_INCREMENT PRIMARY KEY, "
                     + "FirstName VARCHAR(50) NOT NULL, "
@@ -35,11 +35,12 @@ public class database {
                     + "Gender ENUM('Male', 'Female', 'Other') NOT NULL, "
                     + "Age INT NOT NULL, "
                     + "Email VARCHAR(100) UNIQUE NOT NULL, "
-                    + "Password VARCHAR(100) NOT NULL)";
+                    + "Password VARCHAR(100) NOT NULL, "
+                    + "UserType VARCHAR(20) NOT NULL DEFAULT 'Student')"; // Add UserType column
             try (PreparedStatement statement = connection.prepareStatement(createStudentsTableQuery)) {
                 statement.executeUpdate();
             }
-            
+
             // Creating the Teachers table if it doesn't exist in the database
             String createTeachersTableQuery = "CREATE TABLE IF NOT EXISTS Teachers ("
                     + "TeacherID INT AUTO_INCREMENT PRIMARY KEY, "
@@ -48,11 +49,12 @@ public class database {
                     + "Gender ENUM('Male', 'Female', 'Other') NOT NULL, "
                     + "Age INT NOT NULL, "
                     + "Email VARCHAR(100) UNIQUE NOT NULL, "
-                    + "Password VARCHAR(100) NOT NULL)";
+                    + "Password VARCHAR(100) NOT NULL, "
+                    + "UserType VARCHAR(20) NOT NULL DEFAULT 'Teacher')"; // Add UserType column
             try (PreparedStatement statement = connection.prepareStatement(createTeachersTableQuery)) {
                 statement.executeUpdate();
             }
-            
+
             // Creating the Admin table if it doesn't exist in the database
             String createAdminTableQuery = "CREATE TABLE IF NOT EXISTS Admin ("
                     + "AdminID INT AUTO_INCREMENT PRIMARY KEY, "
@@ -61,10 +63,12 @@ public class database {
                     + "Gender ENUM('Male', 'Female', 'Other') NOT NULL, "
                     + "Age INT NOT NULL, "
                     + "Email VARCHAR(100) UNIQUE NOT NULL, "
-                    + "Password VARCHAR(100) NOT NULL)";
+                    + "Password VARCHAR(100) NOT NULL, "
+                    + "UserType VARCHAR(20) NOT NULL DEFAULT 'Admin')"; // Add UserType column
             try (PreparedStatement statement = connection.prepareStatement(createAdminTableQuery)) {
                 statement.executeUpdate();
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

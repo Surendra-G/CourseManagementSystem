@@ -107,7 +107,7 @@ public class login_page extends JFrame {
 				
 				try (Connection connection = database.getConnection()) {
 				    // Authenticate the user against the appropriate section of the database
-				    String authenticateUserQuery = "SELECT * FROM " + selectMode + " WHERE Email = ? AND Password = ?";
+					String authenticateUserQuery = "SELECT UserType FROM " + selectMode + " WHERE Email = ? AND Password = ?";
 				    try (PreparedStatement statement = connection.prepareStatement(authenticateUserQuery)) {
 				        statement.setString(1, emailText);
 				        statement.setString(2, PasswordText);
@@ -118,14 +118,17 @@ public class login_page extends JFrame {
 				                    case "Admin":
 				                    	dashboard db_Admin = new dashboard();
 				                    	db_Admin.setVisible(true);
+				                    	dispose();
 				                        break;
 				                    case "Student":
 				                    	dashboard db_Student = new dashboard();
 				                    	db_Student.setVisible(true);
+				                    	dispose();
 				                        break;
 				                    case "Teacher":
 				                    	dashboard db_Teacher = new dashboard();
 				                    	db_Teacher.setVisible(true);
+				                    	dispose();
 				                        break;
 				                    default:
 				                        // Handle unknown user type
