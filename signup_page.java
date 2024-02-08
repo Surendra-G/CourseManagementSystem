@@ -1,5 +1,5 @@
 package FinalPortfolio;
-
+import FinalPortfolio.dashboard;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -263,6 +263,10 @@ public class signup_page extends JFrame {
                     JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
 
                 }
+                String firstName = firstname.getText();
+                dashboard db = new dashboard(firstName);
+                db.setVisible(true);
+                dispose();
 
             }
         });

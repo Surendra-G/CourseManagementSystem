@@ -24,11 +24,19 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
-public class Students extends JFrame {
+public class Setting extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField setting_fname;
+	private JTextField setting_lname;
+	private JTextField setting_Email;
+	private JTextField setting_ID;
+	private JPasswordField old_passwordfield;
+	private JPasswordField new_passwordfield;
 
 	/**
 	 * Launch the application.
@@ -37,7 +45,7 @@ public class Students extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Students frame = new Students();
+					Setting frame = new Setting();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +57,7 @@ public class Students extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Students() {
+	public Setting() {
 		Color color = Color.decode("#eae2d9");
 
 
@@ -117,13 +125,6 @@ public class Students extends JFrame {
         JButton StudentPanel = new JButton("Students");
         StudentPanel.setBackground(Color.decode("#eae2d9"));
         JButton SettingPanel = new JButton("Setting");
-        SettingPanel.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Setting set = new Setting();
-        		set.setVisible(true);
-        		dispose();
-        	}
-        });
         SettingPanel.setBackground(Color.decode("#eae2d9"));
         JButton LogoutPanel = new JButton("Logout");
         LogoutPanel.setBackground(Color.decode("#eae2d9"));
@@ -131,7 +132,6 @@ public class Students extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
-                dispose();
             }
         });
 
@@ -155,21 +155,125 @@ public class Students extends JFrame {
         // Content Panel
         JPanel contentPanel = new JPanel();
         contentPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        SpringLayout sl_contentPanel = new SpringLayout();
-        contentPanel.setLayout(sl_contentPanel);
         mainPanel.add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Student Dashbord");
-        sl_contentPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 0, SpringLayout.NORTH, contentPanel);
-        sl_contentPanel.putConstraint(SpringLayout.WEST, lblNewLabel, 231, SpringLayout.WEST, contentPanel);
-        sl_contentPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel, -434, SpringLayout.SOUTH, contentPanel);
-        sl_contentPanel.putConstraint(SpringLayout.EAST, lblNewLabel, -264, SpringLayout.EAST, contentPanel);
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        JLabel lblNewLabel = new JLabel("Settings");
+        lblNewLabel.setBounds(264, 10, 148, 36);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         contentPanel.add(lblNewLabel);
         
+        JLabel lblNewLabel_1 = new JLabel("FirstName: ");
+        lblNewLabel_1.setBounds(10, 70, 95, 26);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        contentPanel.add(lblNewLabel_1);
+        
+        setting_fname = new JTextField();
+        setting_fname.setBounds(93, 72, 158, 28);
+        contentPanel.add(setting_fname);
+        setting_fname.setColumns(10);
+        
+        JLabel lblNewLabel_1_1 = new JLabel("LastName: ");
+        lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_1_1.setBounds(317, 74, 95, 26);
+        contentPanel.add(lblNewLabel_1_1);
+        
+        setting_lname = new JTextField();
+        setting_lname.setColumns(10);
+        setting_lname.setBounds(403, 72, 158, 28);
+        contentPanel.add(setting_lname);
+        
+        JLabel setting_email = new JLabel("E-mail: ");
+        setting_email.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        setting_email.setBounds(10, 134, 95, 26);
+        contentPanel.add(setting_email);
+        
+        setting_Email = new JTextField();
+        setting_Email.setColumns(10);
+        setting_Email.setBounds(93, 134, 158, 28);
+        contentPanel.add(setting_Email);
+        
+        JLabel lblNewLabel_1_1_1 = new JLabel("ID:");
+        lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_1_1_1.setBounds(371, 134, 41, 26);
+        contentPanel.add(lblNewLabel_1_1_1);
+        
+        setting_ID = new JTextField();
+        setting_ID.setColumns(10);
+        setting_ID.setBounds(403, 132, 158, 28);
+        contentPanel.add(setting_ID);
+        
+        JLabel lblSecurityPassword = new JLabel("Security & Password");
+        lblSecurityPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
+        lblSecurityPassword.setBounds(218, 204, 221, 36);
+        contentPanel.add(lblSecurityPassword);
+        
+        JLabel lblNewLabel_1_2 = new JLabel("Old Password:");
+        lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_1_2.setBounds(10, 262, 95, 26);
+        contentPanel.add(lblNewLabel_1_2);
+        
+        old_passwordfield = new JPasswordField();
+        old_passwordfield.setBounds(115, 264, 179, 28);
+        contentPanel.add(old_passwordfield);
+        
+        JLabel lblNewLabel_1_2_1 = new JLabel("New Password:");
+        lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_1_2_1.setBounds(304, 262, 108, 26);
+        contentPanel.add(lblNewLabel_1_2_1);
+        
+        new_passwordfield = new JPasswordField();
+        new_passwordfield.setBounds(422, 260, 179, 28);
+        contentPanel.add(new_passwordfield);
+        
+        JButton btnNewButton = new JButton("Edit Profile");
+        btnNewButton.setForeground(SystemColor.window);
+        btnNewButton.setBackground(SystemColor.desktop);
+        btnNewButton.setBounds(250, 179, 108, 25);
+        contentPanel.add(btnNewButton);
+        
+        JButton change_password = new JButton("Change Password");
+        change_password.setForeground(SystemColor.window);
+        change_password.setBackground(SystemColor.desktop);
+        change_password.setBounds(229, 305, 148, 36);
+        contentPanel.add(change_password);
+        
+        JLabel lblHelpServices = new JLabel("Help & Services");
+        lblHelpServices.setFont(new Font("Tahoma", Font.BOLD, 20));
+        lblHelpServices.setBounds(218, 352, 221, 36);
+        contentPanel.add(lblHelpServices);
+        
+        JLabel lblNewLabel_2 = new JLabel("For any type of the Help & Services. Don't Forgot to Contact Herald College Kathmandu, Nepal\r\n\r\n");
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_2.setBounds(31, 398, 598, 26);
+        contentPanel.add(lblNewLabel_2);
+        
+        JLabel lblNewLabel_3 = new JLabel("Phone Number: 01-5970120");
+        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_3.setBounds(243, 423, 196, 26);
+        contentPanel.add(lblNewLabel_3);
+        
+        JLabel lblNewLabel_4 = new JLabel("-----------------------------------------------------------------------------------------------------------------\r\n");
+        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_4.setBounds(20, 37, 640, 13);
+        contentPanel.add(lblNewLabel_4);
+        
+        JLabel lblNewLabel_4_1 = new JLabel("-----------------------------------------------------------------------------------------------------------------\r\n");
+        lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_4_1.setBounds(31, 227, 640, 13);
+        contentPanel.add(lblNewLabel_4_1);
+        
+        JLabel lblNewLabel_4_2 = new JLabel("-----------------------------------------------------------------------------------------------------------------\r\n");
+        lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel_4_2.setBounds(20, 382, 640, 13);
+        contentPanel.add(lblNewLabel_4_2);
         
         
         
+        
+        
+        
+
         // Footer Panel
         JPanel footerPanel = new JPanel();
         footerPanel.setToolTipText("");
@@ -183,5 +287,4 @@ public class Students extends JFrame {
         getContentPane().add(mainPanel);
         setVisible(true);
 	}
-
 }
