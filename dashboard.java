@@ -26,7 +26,6 @@ import FinalPortfolio.Teacher.Teacher_display;
 
 
 import java.awt.*;
-import java.awt.EventQueue;
 import java.sql.*;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -124,12 +123,6 @@ public class dashboard extends JFrame {
         user_name.setBounds(615, 16, 175, 54);
         headerPanel.add(user_name);
         
-        
-////        try (Connection connection = database.getConnection()){
-//        	
-//        }
-////        String userName = firstNameText + lastNameText;
-
         // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
         sidePanel.setPreferredSize(new Dimension(140, 0));
@@ -144,11 +137,33 @@ public class dashboard extends JFrame {
         home.setBackground(Color.decode("#eae2d9"));
 
         JButton AdminPanel = new JButton("Admin");
+        AdminPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Admin ad = new Admin();
+        		ad.setVisible(true);
+        		dispose();
+        	}
+        });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
         JButton TeacherPanel = new JButton("Teacher");
+        TeacherPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Teachers teach = new Teachers();
+        		teach.setVisible(true);
+        		dispose();
+        	}
+        });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
+        StudentPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Students stud = new Students();
+        		stud.setVisible(true);
+        		dispose();
+        	}
+        });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -181,6 +196,17 @@ public class dashboard extends JFrame {
         sidePanel.add(AdminPanel);
         sidePanel.add(TeacherPanel);
         sidePanel.add(StudentPanel);
+        
+        JButton ResultPanel = new JButton("Result");
+        ResultPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Result res = new Result();
+        		res.setVisible(true);
+        		dispose();
+        	}
+        });
+        ResultPanel.setBackground(Color.decode("#eae2d9"));
+        sidePanel.add(ResultPanel);
         sidePanel.add(SettingPanel);
         sidePanel.add(LogoutPanel);
         mainPanel.add(sidePanel, BorderLayout.WEST);

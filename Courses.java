@@ -101,11 +101,6 @@ public class Courses extends JFrame {
         user_name.setBounds(615, 16, 175, 54);
         headerPanel.add(user_name);
         
-        
-////        try (Connection connection = database.getConnection()){
-//        	
-//        }
-////        String userName = firstNameText + lastNameText;
 
         // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
@@ -125,6 +120,7 @@ public class Courses extends JFrame {
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
+        
         StudentPanel.setBackground(Color.decode("#eae2d9"));
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
@@ -158,6 +154,16 @@ public class Courses extends JFrame {
         sidePanel.add(AdminPanel);
         sidePanel.add(TeacherPanel);
         sidePanel.add(StudentPanel);
+        JButton ResultPanel = new JButton("Result");
+        ResultPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Result res = new Result();
+        		res.setVisible(true);
+        		dispose();
+        	}
+        });
+        ResultPanel.setBackground(Color.decode("#eae2d9"));
+        sidePanel.add(ResultPanel);
         sidePanel.add(SettingPanel);
         sidePanel.add(LogoutPanel);
         mainPanel.add(sidePanel, BorderLayout.WEST);

@@ -26,11 +26,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class Teachers extends JFrame {
+public class for_student extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField teacher_input;
+	private JTextField textField;
 	private JTable table;
 
 	/**
@@ -40,7 +40,7 @@ public class Teachers extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Teachers frame = new Teachers();
+					for_student frame = new for_student();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class Teachers extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Teachers() {
+	public for_student() {
 		Color color = Color.decode("#eae2d9");
 
 
@@ -123,15 +123,17 @@ public class Teachers extends JFrame {
         	}
         });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Teachers teach = new Teachers();
-        		teach.setVisible(true);
+        		Teachers tea = new Teachers();
+        		tea.setVisible(true);
         		dispose();
         	}
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -140,8 +142,8 @@ public class Teachers extends JFrame {
         		dispose();
         	}
         });
-        
         StudentPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -195,40 +197,26 @@ public class Teachers extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Teachers Information");
-        lblNewLabel.setBounds(229, 10, 230, 36);
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        JLabel lblNewLabel = new JLabel("Student Information");
+        lblNewLabel.setBounds(244, 10, 182, 36);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
-        
-        
         
         JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
         lblNewLabel_1.setBounds(46, 36, 630, 22);
         contentPanel.add(lblNewLabel_1);
         
-        JButton teacher_add_btn = new JButton("Add ");
-        teacher_add_btn.setBounds(358, 85, 85, 30);
+        JButton teacher_add_btn = new JButton("Search ");
+        teacher_add_btn.setBounds(458, 79, 174, 30);
         contentPanel.add(teacher_add_btn);
         
-        JButton teacher_edit_btn = new JButton("Edit");
-        teacher_edit_btn.setBounds(453, 85, 85, 30);
-        teacher_edit_btn.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        contentPanel.add(teacher_edit_btn);
-        
-        JButton teacher_delete_btn = new JButton("Delete");
-        teacher_delete_btn.setBounds(548, 85, 85, 30);
-        contentPanel.add(teacher_delete_btn);
-        
-        teacher_input = new JTextField();
-        teacher_input.setBounds(21, 83, 327, 36);
-        contentPanel.add(teacher_input);
-        teacher_input.setColumns(10);
+        textField = new JTextField();
+        textField.setBounds(33, 80, 415, 30);
+        contentPanel.add(textField);
+        textField.setColumns(10);
         
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(21, 144, 612, 296);
+        scrollPane.setBounds(33, 136, 599, 282);
         contentPanel.add(scrollPane);
         
         table = new JTable();
@@ -237,12 +225,12 @@ public class Teachers extends JFrame {
         	new Object[][] {
         	},
         	new String[] {
-        		"ID", "FirstName", "LastName", "Email", "Course"
+        		"ID", "FullName", "LastName", "Email", "Course"
         	}
         ));
         
-        
 
+        
         // Footer Panel
         JPanel footerPanel = new JPanel();
         footerPanel.setToolTipText("");

@@ -34,6 +34,7 @@ public class database {
                     + "LastName VARCHAR(50) NOT NULL, "
                     + "Gender ENUM('Male', 'Female', 'Other') NOT NULL, "
                     + "Age INT NOT NULL, "
+                    + "Course VARCHAR(50) NOT NULL, "
                     + "Email VARCHAR(100) UNIQUE NOT NULL, "
                     + "Password VARCHAR(100) NOT NULL, "
                     + "UserType VARCHAR(20) NOT NULL DEFAULT 'Student')"; // Add UserType column
@@ -48,6 +49,7 @@ public class database {
                     + "LastName VARCHAR(50) NOT NULL, "
                     + "Gender ENUM('Male', 'Female', 'Other') NOT NULL, "
                     + "Age INT NOT NULL, "
+                    + "Course VARCHAR(50) NOT NULL, "
                     + "Email VARCHAR(100) UNIQUE NOT NULL, "
                     + "Password VARCHAR(100) NOT NULL, "
                     + "UserType VARCHAR(20) NOT NULL DEFAULT 'Teacher')"; // Add UserType column
@@ -62,6 +64,7 @@ public class database {
                     + "LastName VARCHAR(50) NOT NULL, "
                     + "Gender ENUM('Male', 'Female', 'Other') NOT NULL, "
                     + "Age INT NOT NULL, "
+                    + "Course VARCHAR(50) NOT NULL, "
                     + "Email VARCHAR(100) UNIQUE NOT NULL, "
                     + "Password VARCHAR(100) NOT NULL, "
                     + "UserType VARCHAR(20) NOT NULL DEFAULT 'Admin')"; // Add UserType column

@@ -19,16 +19,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
 
 public class Students extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -64,16 +68,17 @@ public class Students extends JFrame {
         headerPanel.setBackground(SystemColor.controlHighlight);
         headerPanel.setPreferredSize(new Dimension(800, 70));
         JLabel headerLabel = new JLabel("Course Management System");
+        headerLabel.setBounds(10, 16, 750, 54);
         headerLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(16, 10, 0, 10));
-        headerPanel.setLayout(new BorderLayout(0, 0));
-        headerPanel.setLayout(new BorderLayout(0, 0));
+        headerPanel.setLayout(null);
+        headerPanel.setLayout(null);
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         headerLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         headerLabel.setForeground(SystemColor.desktop);
-        headerPanel.add(headerLabel, BorderLayout.CENTER);
+        headerPanel.add(headerLabel);
         
-        //adding the profile button inside the headerPanel
+      //adding the profile button inside the headerPanel
         ImageIcon profileIcon = new ImageIcon("C:\\Users\\Surendra\\eclipse-workspace\\Tutorial\\src\\FinalPortfolio\\images\\profile.png");
 
 	     // Scale the image to the desired dimensions
@@ -84,18 +89,20 @@ public class Students extends JFrame {
 	
 	     // Create the profile label with the scaled icon
 	     JLabel profileLabel = new JLabel(scaledProfileIcon);
+	     profileLabel.setBounds(760, 16, 30, 54);
 	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 	     // Add the profile label to the headerPanel
-	     headerPanel.add(profileLabel, BorderLayout.EAST);
+	     headerPanel.add(profileLabel);
 	     
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         
+        JLabel user_name = new JLabel("UserName");
+        user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
+        user_name.setBounds(615, 16, 175, 54);
+        headerPanel.add(user_name);
         
-////        try (Connection connection = database.getConnection()){
-//        	
-//        }
-////        String userName = firstNameText + lastNameText;
+
 
         // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
@@ -111,11 +118,35 @@ public class Students extends JFrame {
         home.setBackground(Color.decode("#eae2d9"));
 
         JButton AdminPanel = new JButton("Admin");
+        AdminPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Admin adm = new Admin();
+        		adm.setVisible(true);
+        		dispose();
+        	}
+        });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton TeacherPanel = new JButton("Teacher");
+        TeacherPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Teachers tea = new Teachers();
+        		tea.setVisible(true);
+        		dispose();
+        	}
+        });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton StudentPanel = new JButton("Students");
+        StudentPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Students stud = new Students();
+        		stud.setVisible(true);
+        		dispose();
+        	}
+        });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -148,6 +179,17 @@ public class Students extends JFrame {
         sidePanel.add(AdminPanel);
         sidePanel.add(TeacherPanel);
         sidePanel.add(StudentPanel);
+        
+        JButton ResultPanel = new JButton("Result");
+        ResultPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Result res = new Result();
+        		res.setVisible(true);
+        		dispose();
+        	}
+        });
+        ResultPanel.setBackground(Color.decode("#eae2d9"));
+        sidePanel.add(ResultPanel);
         sidePanel.add(SettingPanel);
         sidePanel.add(LogoutPanel);
         mainPanel.add(sidePanel, BorderLayout.WEST);
@@ -155,17 +197,52 @@ public class Students extends JFrame {
         // Content Panel
         JPanel contentPanel = new JPanel();
         contentPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        SpringLayout sl_contentPanel = new SpringLayout();
-        contentPanel.setLayout(sl_contentPanel);
         mainPanel.add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Student Dashbord");
-        sl_contentPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 0, SpringLayout.NORTH, contentPanel);
-        sl_contentPanel.putConstraint(SpringLayout.WEST, lblNewLabel, 231, SpringLayout.WEST, contentPanel);
-        sl_contentPanel.putConstraint(SpringLayout.SOUTH, lblNewLabel, -434, SpringLayout.SOUTH, contentPanel);
-        sl_contentPanel.putConstraint(SpringLayout.EAST, lblNewLabel, -264, SpringLayout.EAST, contentPanel);
+        JLabel lblNewLabel = new JLabel("Student Information");
+        lblNewLabel.setBounds(244, 10, 182, 36);
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
+        
+        textField = new JTextField();
+        textField.setBounds(20, 77, 313, 36);
+        contentPanel.add(textField);
+        textField.setColumns(10);
+        
+        JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
+        lblNewLabel_1.setBounds(46, 36, 630, 22);
+        contentPanel.add(lblNewLabel_1);
+        
+        JButton teacher_add_btn = new JButton("Add ");
+        teacher_add_btn.setBounds(341, 79, 85, 30);
+        contentPanel.add(teacher_add_btn);
+        
+        JButton teacher_edit_btn = new JButton("Edit");
+        teacher_edit_btn.setBounds(436, 79, 85, 30);
+        teacher_edit_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        contentPanel.add(teacher_edit_btn);
+        
+        JButton teacher_delete_btn = new JButton("Delete");
+        teacher_delete_btn.setBounds(531, 79, 85, 30);
+        contentPanel.add(teacher_delete_btn);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(20, 132, 610, 266);
+        contentPanel.add(scrollPane);
+        
+        table = new JTable();
+        scrollPane.setViewportView(table);
+        table.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"ID", "FirstName", "LastName", "Email", "Course"
+        	}
+        ));
         
         
         

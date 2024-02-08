@@ -42,6 +42,7 @@ public class signup_page extends JFrame {
     private JTextField ageTextField;
     private String selectedGender = "";
     private JComboBox comboBox;
+    private JTextField textField_course;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -150,6 +151,10 @@ public class signup_page extends JFrame {
         BIRTHDATE.setBounds(114, 180, 37, 37);
         BIRTHDATE.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPane.add(BIRTHDATE);
+        
+        textField_course = new JTextField();
+        textField_course.setBounds(325, 184, 81, 30);
+        contentPane.add(textField_course);
 
         password = new JPasswordField();
         password.setBounds(158, 276, 317, 30);
@@ -168,6 +173,7 @@ public class signup_page extends JFrame {
                 String lastNameText = lastname.getText();
                 String genderSelectionText = selectedGender;
                 String ageText = ageTextField.getText().trim();
+                String courseText = textField_course.getText();
                 String emailText = eMAIL.getText();
                 String passwordText = new String(password.getPassword());
                 String confirmPasswordText = new String(confirm_password.getPassword());
@@ -202,20 +208,21 @@ public class signup_page extends JFrame {
                 System.out.println("lname: " + lname);
                 System.out.println("Selected Gender: " + selectedGender);
                 System.out.println("Age: " + ageText);
+                System.out.println("Course: " + courseText);
                 System.out.println("Emailcheck: " + Emailcheck);
                 System.out.println("SelectMode: " + selectMode);
                 System.out.println("passNew: " + passNew);
                 System.out.println("Passwords match: " + passwordText.equals(confirmPasswordText));
 
                 if (firstNameText.isEmpty() || lastNameText.isEmpty() || genderSelectionText.isEmpty() || ageText.isEmpty()
-                        || emailText.isEmpty() || passwordText.isEmpty() || confirmPasswordText.isEmpty()
+                	||	courseText.isEmpty() || emailText.isEmpty() || passwordText.isEmpty() || confirmPasswordText.isEmpty()
                         || selectMode.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
                     return;
                 }
 
                 if (!firstNameText.equals("") && !lastNameText.equals("") && !genderSelectionText.isEmpty()
-                        && !ageText.equals("") && !emailText.equals("") && !passwordText.equals("")
+                        && !ageText.equals("") && !courseText.equals("") && !emailText.equals("") && !passwordText.equals("")
                         && !confirmPasswordText.equals("") && !selectMode.equals("--Select Options-- ")) {
                     if (fname && lname && Emailcheck && passNew && passwordText.equals(confirmPasswordText)) {
                         JOptionPane.showMessageDialog(null, "Sign Up success");
@@ -241,11 +248,11 @@ public class signup_page extends JFrame {
                 try (Connection connection = database.getConnection()) {
                     String insertUserQuery = "";
                     if (selectMode.equals("Student")) {
-                        insertUserQuery = "INSERT INTO Students (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+                        insertUserQuery = "INSERT INTO Students (FirstName, LastName, Gender, Age, Course, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
                     } else if (selectMode.equals("Teacher")) {
-                        insertUserQuery = "INSERT INTO Teachers (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+                        insertUserQuery = "INSERT INTO Teachers (FirstName, LastName, Gender, Age, Course, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
                     } else if (selectMode.equals("Admin")) {
-                        insertUserQuery = "INSERT INTO Admin (FirstName, LastName, Gender, Age, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+                        insertUserQuery = "INSERT INTO Admin (FirstName, LastName, Gender, Age, Course, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
                     }
 
                     try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
@@ -253,8 +260,9 @@ public class signup_page extends JFrame {
                         statement.setString(2, lastNameText);
                         statement.setString(3, genderSelectionText);
                         statement.setInt(4, age);
-                        statement.setString(5, emailText);
-                        statement.setString(6, passwordText);
+                        statement.setString(5, courseText);
+                        statement.setString(6, emailText);
+                        statement.setString(7, passwordText);
                         statement.executeUpdate();
                         
                     }
@@ -345,6 +353,12 @@ public class signup_page extends JFrame {
         lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
         lblNewLabel_1.setBounds(208, 41, 128, 30);
         contentPane.add(lblNewLabel_1);
+        
+        JLabel course_signup = new JLabel("COURSE:");
+        course_signup.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        course_signup.setBounds(258, 182, 70, 37);
+        contentPane.add(course_signup);
+       
 
         chckbxNewCheckBox_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
