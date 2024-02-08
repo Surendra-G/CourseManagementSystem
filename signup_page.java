@@ -248,11 +248,11 @@ public class signup_page extends JFrame {
                 try (Connection connection = database.getConnection()) {
                     String insertUserQuery = "";
                     if (selectMode.equals("Student")) {
-                        insertUserQuery = "INSERT INTO Students (FirstName, LastName, Gender, Age, Course, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+                        insertUserQuery = "INSERT INTO Students (FirstName, LastName, Gender, Age, Course, Email, Password, UserType) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                     } else if (selectMode.equals("Teacher")) {
-                        insertUserQuery = "INSERT INTO Teachers (FirstName, LastName, Gender, Age, Course, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+                        insertUserQuery = "INSERT INTO Teachers (FirstName, LastName, Gender, Age, Course, Email, Password, UserType) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                     } else if (selectMode.equals("Admin")) {
-                        insertUserQuery = "INSERT INTO Admin (FirstName, LastName, Gender, Age, Course, Email, Password) VALUES (?, ?, ?, ?, ?, ?)";
+                        insertUserQuery = "INSERT INTO Admin (FirstName, LastName, Gender, Age, Course, Email, Password, UserType) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                     }
 
                     try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
@@ -263,6 +263,7 @@ public class signup_page extends JFrame {
                         statement.setString(5, courseText);
                         statement.setString(6, emailText);
                         statement.setString(7, passwordText);
+                        statement.setString(8, selectMode);
                         statement.executeUpdate();
                         
                     }
@@ -271,10 +272,7 @@ public class signup_page extends JFrame {
                     JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
 
                 }
-                String firstName = firstname.getText();
-                dashboard db = new dashboard(firstName);
-                db.setVisible(true);
-                dispose();
+
 
             }
         });
