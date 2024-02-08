@@ -2,7 +2,7 @@ package FinalPortfolio;
 
 import java.awt.*;
 import java.awt.EventQueue;
-
+import java.sql.*;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+
+
 
 public class dashboard extends JFrame {
 
@@ -84,6 +86,12 @@ public class dashboard extends JFrame {
 	     headerPanel.add(profileLabel, BorderLayout.EAST);
 	     
         mainPanel.add(headerPanel, BorderLayout.NORTH);
+        
+        
+        try (Connection connection = database.getConnection()){
+        	
+        }
+        String userName = firstNameText + lastNameText;
 
         // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));

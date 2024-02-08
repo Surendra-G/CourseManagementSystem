@@ -307,6 +307,7 @@ public class signup_page extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page lp = new login_page();
                 lp.setVisible(true);
+                dispose();
             }
         });
         btnNewButton_1.setBounds(356, 476, 70, 23);
