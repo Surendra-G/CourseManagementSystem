@@ -19,13 +19,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
-public class for_result extends JFrame {
+public class resultForTeacher extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTable editableresult;
 
 	/**
 	 * Launch the application.
@@ -34,7 +40,7 @@ public class for_result extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					for_result frame = new for_result();
+					resultForTeacher frame = new resultForTeacher();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +52,7 @@ public class for_result extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public for_result() {
+	public resultForTeacher() {
 		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
@@ -232,21 +238,21 @@ public class for_result extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode == "students") {
-            		for_result set = new for_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "teachers") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "admin") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")) {
+                    student_result res = new student_result();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    resultForTeacher res = new resultForTeacher();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    dispose();
+                }
         	}
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
@@ -261,14 +267,50 @@ public class for_result extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Student's Result Information");
-        lblNewLabel.setBounds(218, 10, 244, 36);
+        JLabel lblNewLabel = new JLabel("Result Information");
+        lblNewLabel.setBounds(248, 10, 214, 36);
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
         
         JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
         lblNewLabel_1.setBounds(46, 36, 630, 22);
         contentPanel.add(lblNewLabel_1);
+        
+        textField = new JTextField();
+        textField.setBounds(42, 78, 383, 36);
+        contentPanel.add(textField);
+        textField.setColumns(10);
+        
+        JButton btnNewButton = new JButton("Search");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnNewButton.setBounds(435, 80, 94, 30);
+        contentPanel.add(btnNewButton);
+        
+        JButton btnViewReport = new JButton("Add Result");
+        btnViewReport.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
+        btnViewReport.setBounds(535, 80, 100, 30);
+        contentPanel.add(btnViewReport);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(46, 134, 593, 232);
+        contentPanel.add(scrollPane);
+        
+        editableresult = new JTable();
+        scrollPane.setViewportView(editableresult);
+        editableresult.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"ID", "First Name", "Last Name", "Email", "Module", "Course Name", "Marks"
+        	}
+        ));
         
   
         // Footer Panel

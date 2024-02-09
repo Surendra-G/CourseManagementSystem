@@ -31,7 +31,7 @@ public class Teachers extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField teacher_input;
-	private JTable table;
+	private JTable teacherInfoTable;
 
 	/**
 	 * Launch the application.
@@ -238,21 +238,21 @@ public class Teachers extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode == "students") {
-            		for_result set = new for_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "teachers") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "admin") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")) {
+                    student_result res = new student_result();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    resultForTeacher res = new resultForTeacher();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    dispose();
+                }
         	}
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
@@ -303,9 +303,9 @@ public class Teachers extends JFrame {
         scrollPane.setBounds(21, 144, 612, 296);
         contentPanel.add(scrollPane);
         
-        table = new JTable();
-        scrollPane.setViewportView(table);
-        table.setModel(new DefaultTableModel(
+        teacherInfoTable = new JTable();
+        scrollPane.setViewportView(teacherInfoTable);
+        teacherInfoTable.setModel(new DefaultTableModel(
         	new Object[][] {
         	},
         	new String[] {

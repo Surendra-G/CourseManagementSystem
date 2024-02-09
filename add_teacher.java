@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class add_teacher extends JFrame {
 
@@ -244,6 +245,21 @@ public class add_teacher extends JFrame {
 		addteacher_password = new JPasswordField();
 		addteacher_password.setBounds(238, 304, 228, 32);
 		contentPane.add(addteacher_password);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("show");
+		chckbxNewCheckBox.setBounds(472, 309, 93, 21);
+		contentPane.add(chckbxNewCheckBox);
+		
+		
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (chckbxNewCheckBox.isSelected()) {
+                	addteacher_password.setEchoChar((char) 0);
+                } else {
+                	addteacher_password.setEchoChar('*');
+                }
+            }
+        });
 	}
 
 }

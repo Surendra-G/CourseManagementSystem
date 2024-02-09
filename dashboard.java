@@ -31,7 +31,7 @@ public class dashboard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
+	private static JTable dashboardTable;
 	private JTable table_1;
 	
 
@@ -125,6 +125,7 @@ public class dashboard extends JFrame {
             		db.setVisible(true);
             		dispose();
             	}
+            	displayDashboard();
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
@@ -240,21 +241,21 @@ public class dashboard extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode == "students") {
-            		for_result set = new for_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "teachers") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "admin") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")) {
+                    student_result res = new student_result();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    resultForTeacher res = new resultForTeacher();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    dispose();
+                }
         	}
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
@@ -322,9 +323,9 @@ public class dashboard extends JFrame {
         count_course.setBounds(53, 57, 45, 25);
         for_course.add(count_course);
         
-        table = new JTable();
-        table.setBounds(113, 261, 0, 0);
-        contentPanel.add(table);
+        dashboardTable = new JTable();
+        dashboardTable.setBounds(113, 261, 0, 0);
+        contentPanel.add(dashboardTable);
         
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(35, 211, 577, 210);
@@ -355,4 +356,28 @@ public class dashboard extends JFrame {
 
 		
 	}
+	
+	public static void displayDashboard() {
+	    DefaultTableModel dashboardModel = (DefaultTableModel) dashboardTable.getModel();
+	    dashboardModel.setRowCount(0); // Clear existing rows
+
+	    String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+	    String username = "root";
+	    String password = "";
+
+	    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+	        String query = "SELECT * FROM Activity";
+	        try (Statement statement = connection.createStatement();
+	             ResultSet resultSet = statement.executeQuery(query)) {
+	            while (resultSet.next()) {
+	                String id = resultSet.getString("ID");
+	                String activity = resultSet.getString("Activities");
+	                dashboardModel.addRow(new Object[]{id, activity});
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }

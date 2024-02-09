@@ -239,17 +239,17 @@ public class for_teacher extends JFrame {
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(mode == "students") {
-            		for_result set = new for_result();
+        			student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "teachers") {
-            		student_result set = new student_result();
+            		resultForTeacher set = new resultForTeacher();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "admin") {
-            		student_result set = new student_result();
+            		admin_result set = new admin_result();
             		set.setVisible(true);
             		dispose();
             	}

@@ -72,7 +72,7 @@ public class database {
                 statement.executeUpdate();
             }
             
-         // Creating the Admin table if it doesn't exist in the database
+         // Creating the course table if it doesn't exist in the database
             String createCourseTableQuery = "CREATE TABLE IF NOT EXISTS Course ("
                     + "CourseID INT AUTO_INCREMENT PRIMARY KEY, "
                     + "Module VARCHAR(50) UNIQUE NOT NULL, "
@@ -81,6 +81,27 @@ public class database {
                     + "Seats INT NOT NULL, "
                     + "Years INT NOT NULL)";
             try (PreparedStatement statement = connection.prepareStatement(createCourseTableQuery)) {
+                statement.executeUpdate();
+            }
+            
+         // Creating the Result table if it doesn't exist in the database
+            String createResultTableQuery = "CREATE TABLE IF NOT EXISTS Result ("
+            		+ "ID INT AUTO_INCREMENT PRIMARY KEY,"
+            		+ "FirstName VARCHAR(50) NOT NULL, "
+                    + "LastName VARCHAR(50) NOT NULL, "
+                    + "Email VARCHAR(50) NOT NULL, "
+                    + "Module VARCHAR(50) NOT NULL,"
+                    + "CourseName VARCHAR(50) NOT NULL, "
+                    + "Marks DECIMAL(5, 2) NOT NULL )";
+            try (PreparedStatement statement = connection.prepareStatement(createCourseTableQuery)) {
+                statement.executeUpdate();
+            }
+            
+            // Creating the Result table if it doesn't exist in the database
+            String createActivityTableQuery = "CREATE TABLE IF NOT EXISTS Activity ("
+            		+ "ID INT AUTO_INCREMENT PRIMARY KEY,"
+            		+ "Activities VARCHAR(500))";
+            try (PreparedStatement statement = connection.prepareStatement(createActivityTableQuery)) {
                 statement.executeUpdate();
             }
 

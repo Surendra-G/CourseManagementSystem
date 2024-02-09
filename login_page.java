@@ -30,9 +30,9 @@ public class login_page extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField emailField;
+    private static JTextField emailField;
     private JPasswordField passwordField;
-    private JComboBox comboBox;
+    private static JComboBox comboBox;
     public static String selectMode;
 
     public static void main(String[] args) {
@@ -78,6 +78,8 @@ public class login_page extends JFrame {
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
         lblNewLabel_2.setBounds(49, 174, 52, 13);
         contentPane.add(lblNewLabel_2);
+        
+        
 
         JLabel lblNewLabel_2_1 = new JLabel("Password:");
         lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -114,16 +116,19 @@ public class login_page extends JFrame {
                                     case "Admin":
                                         dashboard db_Admin = new dashboard();
                                         db_Admin.setVisible(true);
+                                        activity.Activity();
                                         dispose();
                                         break;
                                     case "Student":
                                     	dashboard db_student = new dashboard();
                                     	db_student.setVisible(true);
+                                    	activity.Activity();
                                         dispose();
                                         break;
                                     case "Teacher":
                                     	dashboard db_teacher = new dashboard();
                                     	db_teacher.setVisible(true);
+                                    	activity.Activity();
                                         dispose();
                                         break;
                                     default:
@@ -186,6 +191,7 @@ public class login_page extends JFrame {
         comboBox.setModel(new DefaultComboBoxModel(new String[] {"--Select Options-- ", "students", "teachers", "admin"}));
         contentPane.add(comboBox);
 
+    	
         JLabel selectModeLabel = new JLabel("Select Mode:");
         selectModeLabel.setBounds(10, 272, 95, 14);
         selectModeLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -201,5 +207,19 @@ public class login_page extends JFrame {
                 }
             }
         });
+        
+        
     }
+    
+    public static String comboVal() {
+        String userType = (String) comboBox.getSelectedItem();
+        return userType;
+    }
+
+    public static String mail() {
+        String email = emailField.getText();
+        return email;
+    }
+    
+
 }

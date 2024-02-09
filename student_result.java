@@ -31,7 +31,7 @@ public class student_result extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTable table;
+	private JTable studentResultTable;
 
 	/**
 	 * Launch the application.
@@ -238,21 +238,21 @@ public class student_result extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode == "students") {
-            		for_result set = new for_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "teachers") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "admin") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")) {
+                    student_result res = new student_result();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    resultForTeacher res = new resultForTeacher();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    dispose();
+                }
         	}
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
@@ -285,7 +285,7 @@ public class student_result extends JFrame {
         btnNewButton.setBounds(381, 80, 119, 30);
         contentPanel.add(btnNewButton);
         
-        JButton btnViewReport = new JButton("View Report");
+        JButton btnViewReport = new JButton("View Result");
         btnViewReport.setBounds(510, 80, 119, 30);
         contentPanel.add(btnViewReport);
         
@@ -293,13 +293,13 @@ public class student_result extends JFrame {
         scrollPane.setBounds(46, 134, 593, 232);
         contentPanel.add(scrollPane);
         
-        table = new JTable();
-        scrollPane.setViewportView(table);
-        table.setModel(new DefaultTableModel(
+        studentResultTable = new JTable();
+        scrollPane.setViewportView(studentResultTable);
+        studentResultTable.setModel(new DefaultTableModel(
         	new Object[][] {
         	},
         	new String[] {
-        		"ID", "First Name", "Last Nam", "Email", "Module", "Course Name", "Marks"
+        		"ID", "First Name", "Last Name", "Email", "Module", "Course Name", "Marks"
         	}
         ));
         

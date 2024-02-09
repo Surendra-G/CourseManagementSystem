@@ -244,7 +244,7 @@ public class for_student extends JFrame {
                     dispose();
                 }
                 if (mode.equals("teachers")) {
-                    for_result res = new for_result();
+                    resultForTeacher res = new resultForTeacher();
                     res.setVisible(true);
                     dispose();
                 }

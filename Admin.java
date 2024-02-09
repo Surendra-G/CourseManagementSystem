@@ -241,7 +241,7 @@ public class Admin extends JFrame {
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(mode == "students") {
-            		for_result set = new for_result();
+            		resultForTeacher set = new resultForTeacher();
             		set.setVisible(true);
             		dispose();
             	}

@@ -198,21 +198,21 @@ public class Setting extends JFrame {
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode.equals("students")) {
-            		Setting set = new Setting();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		Setting set = new Setting();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Setting set = new Setting();
-            		set.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")) {
+                    student_result res = new student_result();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    resultForTeacher res = new resultForTeacher();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    dispose();
+                }
         	}
         });
         SettingPanel.setBackground(Color.decode("#eae2d9"));
@@ -242,7 +242,7 @@ public class Setting extends JFrame {
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(mode == "students") {
-            		for_result set = new for_result();
+            		resultForTeacher set = new resultForTeacher();
             		set.setVisible(true);
             		dispose();
             	}

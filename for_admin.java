@@ -238,21 +238,21 @@ public class for_admin extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode == "students") {
-            		for_result set = new for_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "teachers") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
-            	if(mode == "admin") {
-            		student_result set = new student_result();
-            		set.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")) {
+                    student_result res = new student_result();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    resultForTeacher res = new resultForTeacher();
+                    res.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    dispose();
+                }
         	}
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
