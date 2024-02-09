@@ -28,32 +28,33 @@ import javax.swing.table.DefaultTableModel;
 
 public class for_student extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTable table;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTextField textField;
+    private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					for_student frame = new for_student();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    for_student frame = new for_student();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public for_student() {
-		Color color = Color.decode("#eae2d9");
+    /**
+     * Create the frame.
+     */
+    public for_student() {
+        String mode = login_page.selectMode; 
+        Color color = Color.decode("#eae2d9");
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,20 +81,20 @@ public class for_student extends JFrame {
         //adding the profile button inside the headerPanel
         ImageIcon profileIcon = new ImageIcon("C:\\Users\\Surendra\\eclipse-workspace\\Tutorial\\src\\FinalPortfolio\\images\\profile.png");
 
-	     // Scale the image to the desired dimensions
-	     Image scaledImage = profileIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-	
-	     // Create a new ImageIcon with the scaled image
-	     ImageIcon scaledProfileIcon = new ImageIcon(scaledImage);
-	
-	     // Create the profile label with the scaled icon
-	     JLabel profileLabel = new JLabel(scaledProfileIcon);
-	     profileLabel.setBounds(760, 16, 30, 54);
-	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        // Scale the image to the desired dimensions
+        Image scaledImage = profileIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
-	     // Add the profile label to the headerPanel
-	     headerPanel.add(profileLabel);
-	     
+        // Create a new ImageIcon with the scaled image
+        ImageIcon scaledProfileIcon = new ImageIcon(scaledImage);
+
+        // Create the profile label with the scaled icon
+        JLabel profileLabel = new JLabel(scaledProfileIcon);
+        profileLabel.setBounds(760, 16, 30, 54);
+        profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        // Add the profile label to the headerPanel
+        headerPanel.add(profileLabel);
+        
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         
         JLabel user_name = new JLabel("UserName");
@@ -107,50 +108,108 @@ public class for_student extends JFrame {
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dashboard db = new dashboard();
-                db.setVisible(true);
-                dispose();
+                if (mode.equals("students")) {
+                    for_dashboard db = new for_dashboard();
+                    db.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    for_dashboard db = new for_dashboard();
+                    db.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    dashboard db = new dashboard();
+                    db.setVisible(true);
+                    dispose();
+                }
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
 
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Admin adm = new Admin();
-        		adm.setVisible(true);
-        		dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (mode.equals("students")) {
+                    for_admin ad = new for_admin();
+                    ad.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    for_admin ad = new for_admin();
+                    ad.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    Admin ad = new Admin();
+                    ad.setVisible(true);
+                    dispose();
+                }
+            }
         });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
-        
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Teachers tea = new Teachers();
-        		tea.setVisible(true);
-        		dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (mode.equals("students")) {
+                    for_teacher teach = new for_teacher();
+                    teach.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    for_teacher teach = new for_teacher();
+                    teach.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    Teachers teach = new Teachers();
+                    teach.setVisible(true);
+                    dispose();
+                }
+            }
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
-        
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Students stud = new Students();
-        		stud.setVisible(true);
-        		dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (mode.equals("students")) {
+                    for_student stud = new for_student();
+                    stud.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    Students stud = new Students();
+                    stud.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    Students stud = new Students();
+                    stud.setVisible(true);
+                    dispose();
+                }
+            }
         });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
         
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Setting set = new Setting();
-        		set.setVisible(true);
-        		dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (mode.equals("students")) {
+                    Setting set = new Setting();
+                    set.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    Setting set = new Setting();
+                    set.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    Setting set = new Setting();
+                    set.setVisible(true);
+                    dispose();
+                }
+            }
         });
         SettingPanel.setBackground(Color.decode("#eae2d9"));
         JButton LogoutPanel = new JButton("Logout");
@@ -159,7 +218,6 @@ public class for_student extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
-                dispose();
             }
         });
 
@@ -179,11 +237,23 @@ public class for_student extends JFrame {
         
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Result res = new Result();
-        		res.setVisible(true);
-        		dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (mode.equals("students")) {
+                    for_result set = new for_result();
+                    set.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("teachers")) {
+                    Result set = new Result();
+                    set.setVisible(true);
+                    dispose();
+                }
+                if (mode.equals("admin")) {
+                    Result set = new Result();
+                    set.setVisible(true);
+                    dispose();
+                }
+            }
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
         sidePanel.add(ResultPanel);
@@ -222,11 +292,11 @@ public class for_student extends JFrame {
         table = new JTable();
         scrollPane.setViewportView(table);
         table.setModel(new DefaultTableModel(
-        	new Object[][] {
-        	},
-        	new String[] {
-        		"ID", "FullName", "LastName", "Email", "Course"
-        	}
+            new Object[][] {
+            },
+            new String[] {
+                "ID", "FullName", "LastName", "Email", "Course"
+            }
         ));
         
 
@@ -243,6 +313,6 @@ public class for_student extends JFrame {
 
         getContentPane().add(mainPanel);
         setVisible(true);
-	}
+    }
 
 }

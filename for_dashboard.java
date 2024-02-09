@@ -21,16 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class for_teacher extends JFrame {
+public class for_dashboard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTable table;
 
 	/**
@@ -40,7 +38,7 @@ public class for_teacher extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					for_teacher frame = new for_teacher();
+					for_dashboard frame = new for_dashboard();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +50,7 @@ public class for_teacher extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public for_teacher() {
+	public for_dashboard() {
 		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
@@ -99,9 +97,9 @@ public class for_teacher extends JFrame {
         
         JLabel user_name = new JLabel("UserName");
         user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
-        user_name.setBounds(629, 16, 161, 54);
+        user_name.setBounds(615, 16, 175, 54);
         headerPanel.add(user_name);
-
+        
      // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
         sidePanel.setPreferredSize(new Dimension(140, 0));
@@ -267,26 +265,61 @@ public class for_teacher extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Teachers Information");
-        lblNewLabel.setBounds(244, 10, 182, 36);
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+        JLabel lblNewLabel = new JLabel("Welcome To Course Managment System");
+        lblNewLabel.setBounds(201, 10, 288, 36);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         contentPanel.add(lblNewLabel);
         
-        JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
-        lblNewLabel_1.setBounds(46, 36, 630, 22);
-        contentPanel.add(lblNewLabel_1);
+        JPanel for_student = new JPanel();
+        for_student.setBounds(35, 52, 147, 138);
+        for_student.setBorder(BorderFactory.createRaisedBevelBorder());
+        contentPanel.add(for_student);
         
-        JButton teacher_add_btn = new JButton("Search ");
-        teacher_add_btn.setBounds(458, 79, 161, 30);
-        contentPanel.add(teacher_add_btn);
+        JPanel for_Teacher = new JPanel();
+        for_Teacher.setBounds(241, 52, 152, 138);
+        for_Teacher.setBorder(BorderFactory.createRaisedBevelBorder());
+        contentPanel.add(for_Teacher);
         
-        textField = new JTextField();
-        textField.setBounds(44, 77, 411, 36);
-        contentPanel.add(textField);
-        textField.setColumns(10);
+        JPanel for_course = new JPanel();
+        for_course.setBounds(460, 52, 152, 130);
+        for_Teacher.setLayout(null);
+        
+        JLabel lblNewLabel_2 = new JLabel("TOTAL TEACHERS");
+        lblNewLabel_2.setBounds(22, 7, 108, 16);
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        for_Teacher.add(lblNewLabel_2);
+        
+        JLabel count_teacher = new JLabel("0");
+        count_teacher.setFont(new Font("Tahoma", Font.BOLD, 20));
+        count_teacher.setBounds(59, 60, 45, 25);
+        for_Teacher.add(count_teacher);
+        for_student.setLayout(null);
+        
+        JLabel lblNewLabel_1 = new JLabel("TOTAL STUDENT");
+        lblNewLabel_1.setBounds(22, 7, 102, 16);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        for_student.add(lblNewLabel_1);
+        
+        JLabel count_student = new JLabel("0");
+        count_student.setFont(new Font("Tahoma", Font.BOLD, 20));
+        count_student.setBounds(53, 54, 52, 41);
+        for_student.add(count_student);
+        contentPanel.add(for_course);
+        for_course.setBorder(BorderFactory.createRaisedBevelBorder());
+        for_course.setLayout(null);
+        
+        JLabel lblNewLabel_3 = new JLabel("TOTAL COURSES");
+        lblNewLabel_3.setBounds(25, 7, 101, 16);
+        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        for_course.add(lblNewLabel_3);
+        
+        JLabel count_course = new JLabel("0");
+        count_course.setFont(new Font("Tahoma", Font.BOLD, 20));
+        count_course.setBounds(53, 57, 45, 25);
+        for_course.add(count_course);
         
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(46, 140, 585, 293);
+        scrollPane.setBounds(31, 212, 581, 225);
         contentPanel.add(scrollPane);
         
         table = new JTable();
@@ -295,13 +328,12 @@ public class for_teacher extends JFrame {
         	new Object[][] {
         	},
         	new String[] {
-        		"ID", "FirstName", "LastName", "Email", "Course"
+        		"ID", "Activities"
         	}
         ));
         
         
 
-        
         // Footer Panel
         JPanel footerPanel = new JPanel();
         footerPanel.setToolTipText("");

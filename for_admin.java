@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class for_teacher extends JFrame {
+public class for_admin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +40,7 @@ public class for_teacher extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					for_teacher frame = new for_teacher();
+					for_admin frame = new for_admin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class for_teacher extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public for_teacher() {
+	public for_admin() {
 		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
@@ -267,7 +267,7 @@ public class for_teacher extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Teachers Information");
+        JLabel lblNewLabel = new JLabel("Admin Information");
         lblNewLabel.setBounds(244, 10, 182, 36);
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
@@ -277,16 +277,16 @@ public class for_teacher extends JFrame {
         contentPanel.add(lblNewLabel_1);
         
         JButton teacher_add_btn = new JButton("Search ");
-        teacher_add_btn.setBounds(458, 79, 161, 30);
+        teacher_add_btn.setBounds(462, 80, 174, 30);
         contentPanel.add(teacher_add_btn);
         
         textField = new JTextField();
-        textField.setBounds(44, 77, 411, 36);
+        textField.setBounds(33, 79, 419, 34);
         contentPanel.add(textField);
         textField.setColumns(10);
         
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(46, 140, 585, 293);
+        scrollPane.setBounds(33, 120, 603, 312);
         contentPanel.add(scrollPane);
         
         table = new JTable();
@@ -298,6 +298,7 @@ public class for_teacher extends JFrame {
         		"ID", "FirstName", "LastName", "Email", "Course"
         	}
         ));
+        
         
         
 

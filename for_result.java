@@ -19,19 +19,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
-public class for_teacher extends JFrame {
+public class for_result extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -40,7 +34,7 @@ public class for_teacher extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					for_teacher frame = new for_teacher();
+					for_result frame = new for_result();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +46,7 @@ public class for_teacher extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public for_teacher() {
+	public for_result() {
 		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
@@ -267,8 +261,8 @@ public class for_teacher extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Teachers Information");
-        lblNewLabel.setBounds(244, 10, 182, 36);
+        JLabel lblNewLabel = new JLabel("Student's Result Information");
+        lblNewLabel.setBounds(218, 10, 244, 36);
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
         
@@ -276,32 +270,7 @@ public class for_teacher extends JFrame {
         lblNewLabel_1.setBounds(46, 36, 630, 22);
         contentPanel.add(lblNewLabel_1);
         
-        JButton teacher_add_btn = new JButton("Search ");
-        teacher_add_btn.setBounds(458, 79, 161, 30);
-        contentPanel.add(teacher_add_btn);
-        
-        textField = new JTextField();
-        textField.setBounds(44, 77, 411, 36);
-        contentPanel.add(textField);
-        textField.setColumns(10);
-        
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(46, 140, 585, 293);
-        contentPanel.add(scrollPane);
-        
-        table = new JTable();
-        scrollPane.setViewportView(table);
-        table.setModel(new DefaultTableModel(
-        	new Object[][] {
-        	},
-        	new String[] {
-        		"ID", "FirstName", "LastName", "Email", "Course"
-        	}
-        ));
-        
-        
-
-        
+  
         // Footer Panel
         JPanel footerPanel = new JPanel();
         footerPanel.setToolTipText("");

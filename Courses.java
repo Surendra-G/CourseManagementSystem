@@ -53,6 +53,7 @@ public class Courses extends JFrame {
 	 * Create the frame.
 	 */
 	public Courses() {
+		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
 
@@ -102,32 +103,113 @@ public class Courses extends JFrame {
         headerPanel.add(user_name);
         
 
-        // Side Panel
+     // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
         sidePanel.setPreferredSize(new Dimension(140, 0));
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dashboard db = new dashboard();
-                db.setVisible(true);
-                dispose();
+            	if (mode.equals("students")) {
+            		for_dashboard db = new for_dashboard();
+            		db.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		for_dashboard db = new for_dashboard();
+            		db.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		dashboard db = new dashboard();
+            		db.setVisible(true);
+            		dispose();
+            	}
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
 
         JButton AdminPanel = new JButton("Admin");
+        AdminPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (mode.equals("students")) {
+            		for_admin ad = new for_admin();
+            		ad.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		for_admin ad = new for_admin();
+            		ad.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		Admin ad = new Admin();
+            		ad.setVisible(true);
+            		dispose();
+            	}
+        	}
+        });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
         JButton TeacherPanel = new JButton("Teacher");
+        TeacherPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(mode.equals("students")) {
+            		for_teacher teach = new for_teacher();
+            		teach.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		for_teacher teach = new for_teacher();
+            		teach.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		Teachers teach = new Teachers();
+            		teach.setVisible(true);
+            		dispose();
+            	}
+        	}
+        });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
-        
+        StudentPanel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(mode.equals("students")) {
+            		for_student stud = new for_student();
+            		stud.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		Students stud = new Students();
+            		stud.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		Students stud = new Students();
+            		stud.setVisible(true);
+            		dispose();
+            	}
+        	}
+        });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
+        
         JButton SettingPanel = new JButton("Setting");
         SettingPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Setting set = new Setting();
-        		set.setVisible(true);
-        		dispose();
+        		if(mode.equals("students")) {
+            		Setting set = new Setting();
+            		set.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		Setting set = new Setting();
+            		set.setVisible(true);
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		Setting set = new Setting();
+            		set.setVisible(true);
+            		dispose();
+            	}
         	}
         });
         SettingPanel.setBackground(Color.decode("#eae2d9"));
@@ -137,7 +219,6 @@ public class Courses extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
-                dispose();
             }
         });
 
@@ -157,9 +238,21 @@ public class Courses extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Result res = new Result();
-        		res.setVisible(true);
-        		dispose();
+        		if(mode == "students") {
+            		for_result set = new for_result();
+            		set.setVisible(true);
+            		dispose();
+            	}
+            	if(mode == "teachers") {
+            		Result set = new Result();
+            		set.setVisible(true);
+            		dispose();
+            	}
+            	if(mode == "admin") {
+            		Result set = new Result();
+            		set.setVisible(true);
+            		dispose();
+            	}
         	}
         });
         ResultPanel.setBackground(Color.decode("#eae2d9"));
