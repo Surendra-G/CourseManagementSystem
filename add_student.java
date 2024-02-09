@@ -8,10 +8,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
 
 public class add_student extends JFrame {
 
@@ -21,9 +30,9 @@ public class add_student extends JFrame {
 	private JTextField addstudent_lname;
 	private JTextField addstudent_email;
 	private JTextField addstudent_course;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JPasswordField passwordField;
+	private JTextField addstudent_age;
+	private JTextField addstudent_gender;
+	private JPasswordField addstudent_password;
 
 	/**
 	 * Launch the application.
@@ -103,31 +112,125 @@ public class add_student extends JFrame {
 		lblNewLabel_1_2.setBounds(533, 108, 52, 21);
 		contentPane.add(lblNewLabel_1_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(579, 106, 75, 30);
-		contentPane.add(textField);
+		addstudent_age = new JTextField();
+		addstudent_age.setColumns(10);
+		addstudent_age.setBounds(579, 106, 75, 30);
+		contentPane.add(addstudent_age);
 		
 		JLabel lblNewLabel_1_1_3 = new JLabel("Gender: ");
 		lblNewLabel_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1_3.setBounds(513, 165, 62, 21);
 		contentPane.add(lblNewLabel_1_1_3);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(579, 157, 95, 30);
-		contentPane.add(textField_1);
+		addstudent_gender = new JTextField();
+		addstudent_gender.setColumns(10);
+		addstudent_gender.setBounds(579, 157, 95, 30);
+		contentPane.add(addstudent_gender);
 		
 		JLabel lblNewLabel_1_1_4 = new JLabel("Password: ");
 		lblNewLabel_1_1_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1_4.setBounds(146, 307, 95, 21);
 		contentPane.add(lblNewLabel_1_1_4);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(240, 305, 236, 30);
-		contentPane.add(passwordField);
+		addstudent_password = new JPasswordField();
+		addstudent_password.setBounds(240, 305, 236, 30);
+		contentPane.add(addstudent_password);
 		
 		JButton btnNewButton = new JButton("Add ");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String firstNameText = addstudent_fname.getText();
+                String lastNameText = addstudent_lname.getText();
+                String genderSelectionText = addstudent_gender.getText();
+                String ageText = addstudent_age.getText().trim();
+                String courseText = addstudent_course.getText();
+                String emailText = addstudent_email.getText();
+                String passwordText = new String(addstudent_password.getPassword());
+                
+                String regexFN = "^[A-Z][a-z]+";
+                Pattern Fname = Pattern.compile(regexFN);
+
+                Matcher FN = Fname.matcher(firstNameText);
+                boolean fname = FN.matches();
+
+                String regexLN = "^[A-Z][a-z]+";
+                Pattern Lname = Pattern.compile(regexLN);
+
+                Matcher LN = Lname.matcher(lastNameText);
+                boolean lname = LN.matches();
+
+                String regexEm = "^[a-z]+[0-9]+[@][a-z]+[.][a-z]{3,7}";
+                Pattern EmailRegex = Pattern.compile(regexEm);
+
+                Matcher EmailMatch = EmailRegex.matcher(emailText);
+                boolean Emailcheck = EmailMatch.matches();
+
+                String regexP = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@$#])[A-Za-z\\d@$#]{8,}$";
+                Pattern passN = Pattern.compile(regexP);
+
+                Matcher pN = passN.matcher(passwordText);
+                boolean password = pN.matches();
+
+                System.out.println("fname: " + fname);
+                System.out.println("lname: " + lname);
+                System.out.println("Selected Gender: " + genderSelectionText);
+                System.out.println("Age: " + ageText);
+                System.out.println("Course: " + courseText);
+                System.out.println("Emailcheck: " + Emailcheck);
+                System.out.println("password: " + password);
+                
+                if (firstNameText.isEmpty() || lastNameText.isEmpty() || genderSelectionText.isEmpty() || ageText.isEmpty()
+                    	||	courseText.isEmpty() || emailText.isEmpty() || passwordText.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
+                        return;
+                    }
+
+                    if (!firstNameText.equals("") && !lastNameText.equals("") && !genderSelectionText.isEmpty()
+                            && !ageText.equals("") && !courseText.equals("") && !emailText.equals("") && !passwordText.equals("")) {
+                        if (fname && lname && Emailcheck && password ) {
+                            JOptionPane.showMessageDialog(null, "Student Added Successfully");
+                            dispose();
+                            Students stud = new Students();
+                            stud.setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Invalid Input. Please check the Entered Values.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
+                    }
+
+                    int age;
+                    try {
+                        age = Integer.parseInt(ageText);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid integer for age.");
+                        return;
+                    }
+                    
+                    try (Connection connection = database.getConnection()) {
+                            String insertUserQuery = "INSERT INTO Students (FirstName, LastName, Gender, Age, Course, Email, Password, UserType) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        
+                        
+
+                        try (PreparedStatement statement = connection.prepareStatement(insertUserQuery)) {
+                            statement.setString(1, firstNameText);
+                            statement.setString(2, lastNameText);
+                            statement.setString(3, genderSelectionText);
+                            statement.setInt(4, age);
+                            statement.setString(5, courseText);
+                            statement.setString(6, emailText);
+                            statement.setString(7, passwordText);
+                            statement.setString(8, "Student");
+                            statement.executeUpdate();
+                            
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
+
+                    }
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(391, 370, 134, 42);
 		contentPane.add(btnNewButton);

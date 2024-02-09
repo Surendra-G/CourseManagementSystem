@@ -6,15 +6,21 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class delete_admin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField deleteadmin_ID;
 
 	/**
 	 * Launch the application.
@@ -57,14 +63,47 @@ public class delete_admin extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("Delete");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String idText = deleteadmin_ID.getText();
+                
+                int id;
+                try {
+                    id = Integer.parseInt(idText);
+                }catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid integer values for ID.");
+                    return;
+                }
+                
+                // Teacher deleted successfully
+                JOptionPane.showMessageDialog(null, "Admin Deleted Successfully");
+                dispose();
+                Courses stud = new Courses();
+                stud.setVisible(true);
+
+                // Delete teacher from database
+                try (Connection connection = database.getConnection()) {
+                    String deleteUserQuery = "DELETE FROM Admin WHERE AdminID = ?";
+
+                    try (PreparedStatement statement = connection.prepareStatement(deleteUserQuery)) {
+                        statement.setInt(1, id);
+                        
+                        statement.executeUpdate();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
+                }
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(243, 218, 113, 33);
 		contentPane.add(btnNewButton);
 		
-		textField = new JTextField();
-		textField.setBounds(222, 148, 167, 33);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		deleteadmin_ID = new JTextField();
+		deleteadmin_ID.setBounds(222, 148, 167, 33);
+		contentPane.add(deleteadmin_ID);
+		deleteadmin_ID.setColumns(10);
 		
 		
 	}

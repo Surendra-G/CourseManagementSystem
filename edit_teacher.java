@@ -6,21 +6,27 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class edit_teacher extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField editteacher_fname;
+	private JTextField editteacher_lname;
+	private JTextField editteacher_email;
+	private JTextField editteacher_course;
+	private JTextField editteacher_age;
+	private JTextField editteacher_gender;
+	private JTextField editteacher_ID;
 
 	/**
 	 * Launch the application.
@@ -98,49 +104,122 @@ public class edit_teacher extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("Update");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String firstNameText = editteacher_fname.getText();
+		        String lastNameText = editteacher_lname.getText();
+		        String genderSelectionText = editteacher_gender.getText();
+		        String ageText = editteacher_age.getText().trim();
+		        String courseText = editteacher_course.getText();
+		        String emailText = editteacher_email.getText();
+		        String idText = editteacher_ID.getText();
+		        
+		        // Check if all fields are filled
+		        if (firstNameText.isEmpty() || lastNameText.isEmpty() || genderSelectionText.isEmpty() || ageText.isEmpty()
+		            || courseText.isEmpty() || emailText.isEmpty() || idText.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Please fill up all the fields to update.");
+		            return;
+		        }
+
+		        // Perform input validation
+		        if (!firstNameText.matches("^[A-Z][a-z]+") || !lastNameText.matches("^[A-Z][a-z]+") || !emailText.matches("^[a-z]+[0-9]+[@][a-z]+[.][a-z]{3,7}")) {
+		            JOptionPane.showMessageDialog(null, "Invalid Input. Please check the entered values.");
+		            return;
+		        }
+
+		        // Parse age to integer
+		        int age;
+		        try {
+		            age = Integer.parseInt(ageText);
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "Please enter a valid integer for age.");
+		            return;
+		        }
+		        
+		     // Parse ID to integer
+		        int id;
+		        try {
+		            id = Integer.parseInt(idText);
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "Please enter a valid integer for age.");
+		            return;
+		        }
+		        
+		        
+		        
+		        // Update Student details in the database
+		        try (Connection connection = database.getConnection()) {
+		            String updateUserQuery = "UPDATE Teachers SET FirstName = ?, LastName = ?, Gender = ?, Age = ?, Course = ?, Email = ? WHERE TeacherID = ?";
+		            
+		            try (PreparedStatement statement = connection.prepareStatement(updateUserQuery)) {
+		                statement.setString(1, firstNameText);
+		                statement.setString(2, lastNameText);
+		                statement.setString(3, genderSelectionText);
+		                statement.setInt(4, age);
+		                statement.setString(5, courseText);
+		                statement.setString(6, emailText);
+		                statement.setInt(7, id); 
+		                
+		                int rowsAffected = statement.executeUpdate();
+		                
+		                if (rowsAffected > 0) {
+		                    JOptionPane.showMessageDialog(null, "Teacher Updated Successfully");
+		                    dispose();
+		                    Teachers teach = new Teachers();
+		                    teach.setVisible(true);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Failed to update Teacher details.");
+		                }
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		            JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
+		        }
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(342, 330, 134, 42);
 		contentPane.add(btnNewButton);
 		
-		textField = new JTextField();
-		textField.setBounds(225, 108, 231, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		editteacher_fname = new JTextField();
+		editteacher_fname.setBounds(225, 108, 231, 26);
+		contentPane.add(editteacher_fname);
+		editteacher_fname.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(225, 154, 231, 26);
-		contentPane.add(textField_1);
+		editteacher_lname = new JTextField();
+		editteacher_lname.setColumns(10);
+		editteacher_lname.setBounds(225, 154, 231, 26);
+		contentPane.add(editteacher_lname);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(227, 202, 231, 26);
-		contentPane.add(textField_2);
+		editteacher_email = new JTextField();
+		editteacher_email.setColumns(10);
+		editteacher_email.setBounds(227, 202, 231, 26);
+		contentPane.add(editteacher_email);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(225, 264, 231, 26);
-		contentPane.add(textField_3);
+		editteacher_course = new JTextField();
+		editteacher_course.setColumns(10);
+		editteacher_course.setBounds(225, 264, 231, 26);
+		contentPane.add(editteacher_course);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(570, 108, 115, 26);
-		contentPane.add(textField_4);
+		editteacher_age = new JTextField();
+		editteacher_age.setColumns(10);
+		editteacher_age.setBounds(570, 108, 115, 26);
+		contentPane.add(editteacher_age);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(570, 159, 115, 26);
-		contentPane.add(textField_5);
+		editteacher_gender = new JTextField();
+		editteacher_gender.setColumns(10);
+		editteacher_gender.setBounds(570, 159, 115, 26);
+		contentPane.add(editteacher_gender);
 		
 		JLabel lblNewLabel_1_1_3_1 = new JLabel("ID:");
 		lblNewLabel_1_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1_3_1.setBounds(540, 207, 35, 21);
 		contentPane.add(lblNewLabel_1_1_3_1);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(570, 202, 115, 26);
-		contentPane.add(textField_6);
+		editteacher_ID = new JTextField();
+		editteacher_ID.setColumns(10);
+		editteacher_ID.setBounds(570, 202, 115, 26);
+		contentPane.add(editteacher_ID);
 		
 		
 	}

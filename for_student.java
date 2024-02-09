@@ -239,18 +239,18 @@ public class for_student extends JFrame {
         ResultPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (mode.equals("students")) {
-                    for_result set = new for_result();
-                    set.setVisible(true);
+                    student_result res = new student_result();
+                    res.setVisible(true);
                     dispose();
                 }
                 if (mode.equals("teachers")) {
-                    Result set = new Result();
-                    set.setVisible(true);
+                    for_result res = new for_result();
+                    res.setVisible(true);
                     dispose();
                 }
                 if (mode.equals("admin")) {
-                    Result set = new Result();
-                    set.setVisible(true);
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
                     dispose();
                 }
             }

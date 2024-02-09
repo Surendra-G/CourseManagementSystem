@@ -26,12 +26,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class Teachers extends JFrame {
+public class admin_result extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField teacher_input;
 	private JTable table;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -40,7 +40,7 @@ public class Teachers extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Teachers frame = new Teachers();
+					admin_result frame = new admin_result();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class Teachers extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Teachers() {
+	public admin_result() {
 		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
@@ -267,40 +267,34 @@ public class Teachers extends JFrame {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
         
-        JLabel lblNewLabel = new JLabel("Teachers Information");
-        lblNewLabel.setBounds(229, 10, 230, 36);
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        JLabel lblNewLabel = new JLabel("Result Information");
+        lblNewLabel.setBounds(248, 10, 214, 36);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
-        
-        
         
         JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
         lblNewLabel_1.setBounds(46, 36, 630, 22);
         contentPanel.add(lblNewLabel_1);
         
-        JButton teacher_add_btn = new JButton("Add ");
-        teacher_add_btn.setBounds(358, 85, 85, 30);
-        contentPanel.add(teacher_add_btn);
+        textField = new JTextField();
+        textField.setBounds(42, 78, 293, 36);
+        contentPanel.add(textField);
+        textField.setColumns(10);
         
-        JButton teacher_edit_btn = new JButton("Edit");
-        teacher_edit_btn.setBounds(453, 85, 85, 30);
-        teacher_edit_btn.addActionListener(new ActionListener() {
+        JButton btnNewButton = new JButton("Search");
+        btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        contentPanel.add(teacher_edit_btn);
+        btnNewButton.setBounds(340, 80, 75, 30);
+        contentPanel.add(btnNewButton);
         
-        JButton teacher_delete_btn = new JButton("Delete");
-        teacher_delete_btn.setBounds(548, 85, 85, 30);
-        contentPanel.add(teacher_delete_btn);
-        
-        teacher_input = new JTextField();
-        teacher_input.setBounds(21, 83, 327, 36);
-        contentPanel.add(teacher_input);
-        teacher_input.setColumns(10);
+        JButton btnViewReport = new JButton("Edit Result");
+        btnViewReport.setBounds(420, 80, 100, 30);
+        contentPanel.add(btnViewReport);
         
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(21, 144, 612, 296);
+        scrollPane.setBounds(46, 134, 593, 232);
         contentPanel.add(scrollPane);
         
         table = new JTable();
@@ -309,12 +303,19 @@ public class Teachers extends JFrame {
         	new Object[][] {
         	},
         	new String[] {
-        		"ID", "FirstName", "LastName", "Email", "Course"
+        		"ID", "First Name", "Last Nam", "Email", "Module", "Course Name", "Marks"
         	}
         ));
         
+        JButton btnDeleteResult = new JButton("Delete Result");
+        btnDeleteResult.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnDeleteResult.setBounds(525, 80, 114, 30);
+        contentPanel.add(btnDeleteResult);
         
-
+  
         // Footer Panel
         JPanel footerPanel = new JPanel();
         footerPanel.setToolTipText("");

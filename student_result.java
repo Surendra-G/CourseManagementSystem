@@ -26,10 +26,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class Result extends JFrame {
+public class student_result extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -38,7 +40,7 @@ public class Result extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Result frame = new Result();
+					student_result frame = new student_result();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +52,7 @@ public class Result extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Result() {
+	public student_result() {
 		String mode = login_page.selectMode; 
 		Color color = Color.decode("#eae2d9");
 
@@ -242,12 +244,12 @@ public class Result extends JFrame {
             		dispose();
             	}
             	if(mode == "teachers") {
-            		Result set = new Result();
+            		student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "admin") {
-            		Result set = new Result();
+            		student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
@@ -273,6 +275,33 @@ public class Result extends JFrame {
         JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
         lblNewLabel_1.setBounds(46, 36, 630, 22);
         contentPanel.add(lblNewLabel_1);
+        
+        textField = new JTextField();
+        textField.setBounds(46, 81, 325, 36);
+        contentPanel.add(textField);
+        textField.setColumns(10);
+        
+        JButton btnNewButton = new JButton("Search");
+        btnNewButton.setBounds(381, 80, 119, 30);
+        contentPanel.add(btnNewButton);
+        
+        JButton btnViewReport = new JButton("View Report");
+        btnViewReport.setBounds(510, 80, 119, 30);
+        contentPanel.add(btnViewReport);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(46, 134, 593, 232);
+        contentPanel.add(scrollPane);
+        
+        table = new JTable();
+        scrollPane.setViewportView(table);
+        table.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"ID", "First Name", "Last Nam", "Email", "Module", "Course Name", "Marks"
+        	}
+        ));
         
   
         // Footer Panel

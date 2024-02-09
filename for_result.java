@@ -238,12 +238,12 @@ public class for_result extends JFrame {
             		dispose();
             	}
             	if(mode == "teachers") {
-            		Result set = new Result();
+            		student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "admin") {
-            		Result set = new Result();
+            		student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
