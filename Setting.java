@@ -12,12 +12,16 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
@@ -26,6 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JCheckBox;
 
 public class Setting extends JFrame {
 
@@ -37,6 +42,7 @@ public class Setting extends JFrame {
 	private JTextField setting_ID;
 	private JPasswordField old_passwordfield;
 	private JPasswordField new_passwordfield;
+	private JTextField password_ID_input;
 
 	/**
 	 * Launch the application.
@@ -63,7 +69,7 @@ public class Setting extends JFrame {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(810, 600);
         setTitle("Course Management System");
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -73,14 +79,15 @@ public class Setting extends JFrame {
         headerPanel.setBackground(SystemColor.controlHighlight);
         headerPanel.setPreferredSize(new Dimension(800, 70));
         JLabel headerLabel = new JLabel("Course Management System");
+        headerLabel.setBounds(10, 16, 750, 54);
         headerLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(16, 10, 0, 10));
-        headerPanel.setLayout(new BorderLayout(0, 0));
-        headerPanel.setLayout(new BorderLayout(0, 0));
+        headerPanel.setLayout(null);
+        headerPanel.setLayout(null);
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         headerLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         headerLabel.setForeground(SystemColor.desktop);
-        headerPanel.add(headerLabel, BorderLayout.CENTER);
+        headerPanel.add(headerLabel);
         
         //adding the profile button inside the headerPanel
         ImageIcon profileIcon = new ImageIcon("C:\\Users\\Surendra\\eclipse-workspace\\Tutorial\\src\\FinalPortfolio\\images\\profile.png");
@@ -93,18 +100,18 @@ public class Setting extends JFrame {
 	
 	     // Create the profile label with the scaled icon
 	     JLabel profileLabel = new JLabel(scaledProfileIcon);
+	     profileLabel.setBounds(750, 16, 30, 54);
 	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 	     // Add the profile label to the headerPanel
-	     headerPanel.add(profileLabel, BorderLayout.EAST);
+	     headerPanel.add(profileLabel);
 	     
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         
-        
-////        try (Connection connection = database.getConnection()){
-//        	
-//        }
-////        String userName = firstNameText + lastNameText;
+        JLabel user_name = new JLabel("UserName");
+        user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
+        user_name.setBounds(629, 16, 161, 54);
+        headerPanel.add(user_name);
 
      // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
@@ -112,21 +119,11 @@ public class Setting extends JFrame {
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (mode.equals("students")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		dashboard db = new dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
+            	dashboard.displayDashboard();
+            	dashboard db = new dashboard();
+        		db.setVisible(true);
+        		dashboard.displayDashboard();
+        		dispose();
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
@@ -199,18 +196,18 @@ public class Setting extends JFrame {
         SettingPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if (mode.equals("students")) {
-                    student_result res = new student_result();
-                    res.setVisible(true);
+                    Setting set = new Setting();
+                    set.setVisible(true);
                     dispose();
                 }
                 if (mode.equals("teachers")) {
-                    resultForTeacher res = new resultForTeacher();
-                    res.setVisible(true);
+                	Setting set = new Setting();
+                    set.setVisible(true);
                     dispose();
                 }
                 if (mode.equals("admin")) {
-                    admin_result res = new admin_result();
-                    res.setVisible(true);
+                	Setting set = new Setting();
+                    set.setVisible(true);
                     dispose();
                 }
         	}
@@ -242,17 +239,17 @@ public class Setting extends JFrame {
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(mode == "students") {
-            		resultForTeacher set = new resultForTeacher();
+            		student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "teachers") {
-            		student_result set = new student_result();
+            		admin_result set = new admin_result();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "admin") {
-            		student_result set = new student_result();
+            		admin_result set = new admin_result();
             		set.setVisible(true);
             		dispose();
             	}
@@ -322,47 +319,155 @@ public class Setting extends JFrame {
         
         JLabel lblNewLabel_1_2 = new JLabel("Old Password:");
         lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_1_2.setBounds(10, 262, 95, 26);
+        lblNewLabel_1_2.setBounds(10, 250, 95, 26);
         contentPanel.add(lblNewLabel_1_2);
         
         old_passwordfield = new JPasswordField();
-        old_passwordfield.setBounds(115, 264, 179, 28);
+        old_passwordfield.setBounds(103, 250, 179, 28);
         contentPanel.add(old_passwordfield);
         
         JLabel lblNewLabel_1_2_1 = new JLabel("New Password:");
         lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_1_2_1.setBounds(304, 262, 108, 26);
+        lblNewLabel_1_2_1.setBounds(304, 250, 108, 26);
         contentPanel.add(lblNewLabel_1_2_1);
         
         new_passwordfield = new JPasswordField();
-        new_passwordfield.setBounds(422, 260, 179, 28);
+        new_passwordfield.setBounds(416, 250, 179, 28);
         contentPanel.add(new_passwordfield);
         
         JButton btnNewButton = new JButton("Edit Profile");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String firstNameText = setting_fname.getText();
+		        String lastNameText = setting_lname.getText();
+		        String emailText = setting_Email.getText();
+		        String idText = setting_ID.getText();
+		        
+		        // Check if all fields are filled
+		        if (firstNameText.isEmpty() || lastNameText.isEmpty()  || emailText.isEmpty() || idText.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Please fill up all the fields to Edit.");
+		            return;
+		        }
+
+		        // Perform input validation
+		        if (!firstNameText.matches("^[A-Z][a-z]+") || !lastNameText.matches("^[A-Z][a-z]+") || !emailText.matches("^[a-z]+[0-9]+[@][a-z]+[.][a-z]{3,7}")) {
+		            JOptionPane.showMessageDialog(null, "Invalid Input. Please check the entered values.");
+		            return;
+		        }
+		        
+		     // Parse ID to integer
+		        int id;
+		        try {
+		            id = Integer.parseInt(idText);
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "Please enter a valid integer for age.");
+		            return;
+		        }
+		        
+		        
+		        
+		     String updateUserQuery = ""; 
+
+		     // Determine the update query based on the user mode
+		     if(mode.equals("students")) {
+		         updateUserQuery = "UPDATE Students SET FirstName = ?, LastName = ?, Email = ? WHERE StudentID = ?";
+		     } 
+		     if(mode.equals("teachers")) {
+		         updateUserQuery = "UPDATE Teachers SET FirstName = ?, LastName = ?, Email = ? WHERE TeacherID = ?";
+		     } 
+		     if(mode.equals("admin")) {
+		         updateUserQuery = "UPDATE Admin SET FirstName = ?, LastName = ?, Email = ? WHERE AdminID = ?";
+		     } 
+
+		     // Update user details in the database
+		     try (Connection connection = database.getConnection()) {
+		         try (PreparedStatement statement = connection.prepareStatement(updateUserQuery)) {
+		             statement.setString(1, firstNameText);
+		             statement.setString(2, lastNameText);
+		             statement.setString(3, emailText);
+		             statement.setInt(4, id);
+
+		             int rowsAffected = statement.executeUpdate();
+
+		             if (rowsAffected > 0) {
+		                 JOptionPane.showMessageDialog(null, "Edited Successfully");
+		                 dispose();
+		                 Setting stud = new Setting();
+		                 stud.setVisible(true);
+		             } else {
+		                 JOptionPane.showMessageDialog(null, "Failed to Edit details.");
+		             }
+		         }
+		     } catch (SQLException ex) {
+		         ex.printStackTrace();
+		         JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
+		     }
+
+        	}
+        });
         btnNewButton.setForeground(SystemColor.window);
         btnNewButton.setBackground(SystemColor.desktop);
         btnNewButton.setBounds(250, 179, 108, 25);
         contentPanel.add(btnNewButton);
         
         JButton change_password = new JButton("Change Password");
+        change_password.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String oldpasswordText = new String(old_passwordfield.getPassword());
+                String newpasswordText = new String(new_passwordfield.getPassword());
+                String userIDText = password_ID_input.getText(); // Assuming this field is used to capture the user ID
+
+                String updatePasswordQuery = ""; 
+                if(mode.equals("students")) {
+                    updatePasswordQuery = "UPDATE Students SET Password = ? WHERE StudentID = ?";
+                }
+                if(mode.equals("teachers")) {
+                    updatePasswordQuery = "UPDATE Teachers SET Password = ? WHERE TeacherID = ?";
+                }
+                if(mode.equals("admin")) {
+                    updatePasswordQuery = "UPDATE Admin SET Password = ? WHERE adminID = ?";
+                }
+
+                // Update password in the database
+                try (Connection connection = database.getConnection()) {
+                    try (PreparedStatement statement = connection.prepareStatement(updatePasswordQuery)) {
+                        statement.setString(1, newpasswordText);
+                        statement.setString(2, userIDText); // Set the user ID parameter
+
+                        int rowsAffected = statement.executeUpdate();
+
+                        if (rowsAffected >= 0 && !oldpasswordText.equals(newpasswordText)) {
+                            JOptionPane.showMessageDialog(null, "Password updated successfully.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Failed to update password.");
+                        }
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
+                }
+
+		        
+        	}
+        });
         change_password.setForeground(SystemColor.window);
         change_password.setBackground(SystemColor.desktop);
-        change_password.setBounds(229, 305, 148, 36);
+        change_password.setBounds(229, 334, 148, 36);
         contentPanel.add(change_password);
         
         JLabel lblHelpServices = new JLabel("Help & Services");
         lblHelpServices.setFont(new Font("Tahoma", Font.BOLD, 20));
-        lblHelpServices.setBounds(218, 352, 221, 36);
+        lblHelpServices.setBounds(218, 380, 221, 36);
         contentPanel.add(lblHelpServices);
         
         JLabel lblNewLabel_2 = new JLabel("For any type of the Help & Services. Don't Forgot to Contact Herald College Kathmandu, Nepal\r\n\r\n");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_2.setBounds(31, 398, 598, 26);
+        lblNewLabel_2.setBounds(31, 413, 598, 26);
         contentPanel.add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Phone Number: 01-5970120");
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_3.setBounds(243, 423, 196, 26);
+        lblNewLabel_3.setBounds(229, 434, 196, 26);
         contentPanel.add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("-----------------------------------------------------------------------------------------------------------------\r\n");
@@ -377,8 +482,49 @@ public class Setting extends JFrame {
         
         JLabel lblNewLabel_4_2 = new JLabel("-----------------------------------------------------------------------------------------------------------------\r\n");
         lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblNewLabel_4_2.setBounds(20, 382, 640, 13);
+        lblNewLabel_4_2.setBounds(20, 411, 640, 13);
         contentPanel.add(lblNewLabel_4_2);
+        
+        JCheckBox chckbxNewCheckBox = new JCheckBox("show");
+        chckbxNewCheckBox.setBounds(595, 255, 93, 21);
+        contentPanel.add(chckbxNewCheckBox);
+        
+       
+        JCheckBox chckbxNewCheckBox_1 = new JCheckBox("show");
+        chckbxNewCheckBox_1.setBounds(101, 282, 93, 21);
+        contentPanel.add(chckbxNewCheckBox_1);
+        
+        JLabel password_ID = new JLabel("ID:");
+        password_ID.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        password_ID.setBounds(264, 288, 41, 26);
+        contentPanel.add(password_ID);
+        
+        password_ID_input = new JTextField();
+        password_ID_input.setColumns(10);
+        password_ID_input.setBounds(291, 286, 108, 28);
+        contentPanel.add(password_ID_input);
+        
+        chckbxNewCheckBox_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (chckbxNewCheckBox_1.isSelected()) {
+        			old_passwordfield.setEchoChar((char) 0);
+                }
+        		else {
+        			old_passwordfield.setEchoChar('*');
+                }
+        	}
+        });
+        
+        chckbxNewCheckBox.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if (chckbxNewCheckBox.isSelected()) {
+        			new_passwordfield.setEchoChar((char) 0);
+                }
+        		else {
+        			new_passwordfield.setEchoChar('*');
+                }
+        	}
+        });
         
 
         // Footer Panel

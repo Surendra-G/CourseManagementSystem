@@ -12,6 +12,11 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -30,7 +35,7 @@ public class admin_result extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable adminresult;
+	private static JTable adminresult;
 	private JTextField textField;
 
 	/**
@@ -47,6 +52,36 @@ public class admin_result extends JFrame {
 				}
 			}
 		});
+	}
+	
+	public static void displayresult() {
+	    DefaultTableModelModel = (DefaultTableModel)adminresult.getModel();
+	    dashboardModel.setRowCount(0); // Clear existing rows
+
+	    String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+	    String username = "root";
+	    String password = "";
+
+	    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+	        String query = "SELECT * FROM result";
+	        try (Statement statement = connection.createStatement();
+	             ResultSet resultSet = statement.executeQuery(query)) {
+	            while (resultSet.next()) {
+	                String id = resultSet.getString(1);
+	                String firstname = resultSet.getString(2);
+	                String lastname = resultSet.getString(3);
+	                String email = resultSet.getString(4);
+	                String module = resultSet.getString(5);
+	                String CourseName = resultSet.getString(6);
+	                String marks = resultSet.getString(7);
+	                String data[]= {id,firstname,lastname,email,module,CourseName,marks	};
+	                dashboardModel.addRow(data);
+	                
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/**
@@ -89,7 +124,7 @@ public class admin_result extends JFrame {
 	
 	     // Create the profile label with the scaled icon
 	     JLabel profileLabel = new JLabel(scaledProfileIcon);
-	     profileLabel.setBounds(760, 16, 30, 54);
+	     profileLabel.setBounds(750, 16, 30, 54);
 	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 	     // Add the profile label to the headerPanel
@@ -108,21 +143,11 @@ public class admin_result extends JFrame {
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (mode.equals("students")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		dashboard db = new dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
+            	dashboard.displayDashboard();
+            	dashboard db = new dashboard();
+        		db.setVisible(true);
+        		dashboard.displayDashboard();
+        		dispose();
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
@@ -244,7 +269,7 @@ public class admin_result extends JFrame {
                     dispose();
                 }
                 if (mode.equals("teachers")) {
-                    resultForTeacher res = new resultForTeacher();
+                	admin_result res = new admin_result();
                     res.setVisible(true);
                     dispose();
                 }
@@ -281,7 +306,7 @@ public class admin_result extends JFrame {
         contentPanel.add(textField);
         textField.setColumns(10);
         
-        JButton btnNewButton = new JButton("Search");
+        JButton btnNewButton = new JButton("Add Result");
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
@@ -307,7 +332,7 @@ public class admin_result extends JFrame {
         	}
         ));
         
-        JButton btnDeleteResult = new JButton("Delete Result");
+        JButton btnDeleteResult = new JButton("Delete");
         btnDeleteResult.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}

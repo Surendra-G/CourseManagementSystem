@@ -93,7 +93,7 @@ public class database {
                     + "Module VARCHAR(50) NOT NULL,"
                     + "CourseName VARCHAR(50) NOT NULL, "
                     + "Marks DECIMAL(5, 2) NOT NULL )";
-            try (PreparedStatement statement = connection.prepareStatement(createCourseTableQuery)) {
+            try (PreparedStatement statement = connection.prepareStatement(createResultTableQuery)) {
                 statement.executeUpdate();
             }
             

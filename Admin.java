@@ -68,7 +68,7 @@ public class Admin extends JFrame {
         headerPanel.setBackground(SystemColor.controlHighlight);
         headerPanel.setPreferredSize(new Dimension(800, 70));
         JLabel headerLabel = new JLabel("Course Management System");
-        headerLabel.setBounds(10, 16, 750, 54);
+        headerLabel.setBounds(22, 16, 750, 54);
         headerLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(16, 10, 0, 10));
         headerPanel.setLayout(null);
@@ -89,7 +89,7 @@ public class Admin extends JFrame {
 	
 	     // Create the profile label with the scaled icon
 	     JLabel profileLabel = new JLabel(scaledProfileIcon);
-	     profileLabel.setBounds(760, 16, 30, 54);
+	     profileLabel.setBounds(750, 16, 30, 54);
 	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 	     // Add the profile label to the headerPanel
@@ -99,7 +99,7 @@ public class Admin extends JFrame {
         
         JLabel user_name = new JLabel("UserName");
         user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
-        user_name.setBounds(615, 16, 175, 54);
+        user_name.setBounds(643, 16, 122, 54);
         headerPanel.add(user_name);
         
 
@@ -110,21 +110,11 @@ public class Admin extends JFrame {
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (mode.equals("students")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		dashboard db = new dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
+            	dashboard.displayDashboard();
+            	dashboard db = new dashboard();
+        		db.setVisible(true);
+        		dashboard.displayDashboard();
+        		dispose();
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
@@ -241,12 +231,12 @@ public class Admin extends JFrame {
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(mode == "students") {
-            		resultForTeacher set = new resultForTeacher();
+            		student_result set = new student_result();
             		set.setVisible(true);
             		dispose();
             	}
             	if(mode == "teachers") {
-            		student_result set = new student_result();
+            		admin_result set = new admin_result();
             		set.setVisible(true);
             		dispose();
             	}

@@ -31,8 +31,8 @@ public class dashboard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private static JTable dashboardTable;
 	private JTable table_1;
+	private static JTable dashboardTable2;
 	
 
 	/**
@@ -51,6 +51,31 @@ public class dashboard extends JFrame {
 		});
 	}
 
+	public static void displayDashboard() {
+	    DefaultTableModel dashboardModel = (DefaultTableModel)dashboardTable2.getModel();
+	    dashboardModel.setRowCount(0); // Clear existing rows
+
+	    String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+	    String username = "root";
+	    String password = "";
+
+	    try (Connection connection = DriverManager.getConnection(url, username, password)) {
+	        String query = "SELECT * FROM activity";
+	        try (Statement statement = connection.createStatement();
+	             ResultSet resultSet = statement.executeQuery(query)) {
+	            while (resultSet.next()) {
+	                String id = resultSet.getString(1);
+	                String activity = resultSet.getString(2);
+	                String data[]= {id,activity	};
+	                dashboardModel.addRow(data);
+	                
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -91,7 +116,7 @@ public class dashboard extends JFrame {
 	
 	     // Create the profile label with the scaled icon
 	     JLabel profileLabel = new JLabel(scaledProfileIcon);
-	     profileLabel.setBounds(760, 16, 30, 54);
+	     profileLabel.setBounds(750, 16, 30, 54);
 	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 	     // Add the profile label to the headerPanel
@@ -110,22 +135,11 @@ public class dashboard extends JFrame {
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (mode.equals("students")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		dashboard db = new dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
             	displayDashboard();
+            	dashboard db = new dashboard();
+        		db.setVisible(true);
+        		dashboard.displayDashboard();
+        		dispose();
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
@@ -247,7 +261,7 @@ public class dashboard extends JFrame {
                     dispose();
                 }
                 if (mode.equals("teachers")) {
-                    resultForTeacher res = new resultForTeacher();
+                	admin_result res = new admin_result();
                     res.setVisible(true);
                     dispose();
                 }
@@ -323,23 +337,23 @@ public class dashboard extends JFrame {
         count_course.setBounds(53, 57, 45, 25);
         for_course.add(count_course);
         
-        dashboardTable = new JTable();
-        dashboardTable.setBounds(113, 261, 0, 0);
-        contentPanel.add(dashboardTable);
-        
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(35, 211, 577, 210);
         contentPanel.add(scrollPane);
         
-        table_1 = new JTable();
-        scrollPane.setViewportView(table_1);
-        table_1.setModel(new DefaultTableModel(
+        dashboardTable2 = new JTable();
+        scrollPane.setViewportView(dashboardTable2);
+        dashboardTable2.setModel(new DefaultTableModel(
         	new Object[][] {
         	},
-        	new String[] {
+        	new String[]{
         			"ID"	,"Activities"
         	}
+        	
         ));
+        
+        dashboardTable2.getColumnModel().getColumn(0).setPreferredWidth(2);
+        dashboardTable2.getColumnModel().getColumn(1).setPreferredWidth(360);
 
         // Footer Panel
         JPanel footerPanel = new JPanel();
@@ -357,27 +371,7 @@ public class dashboard extends JFrame {
 		
 	}
 	
-	public static void displayDashboard() {
-	    DefaultTableModel dashboardModel = (DefaultTableModel) dashboardTable.getModel();
-	    dashboardModel.setRowCount(0); // Clear existing rows
 
-	    String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
-	    String username = "root";
-	    String password = "";
-
-	    try (Connection connection = DriverManager.getConnection(url, username, password)) {
-	        String query = "SELECT * FROM Activity";
-	        try (Statement statement = connection.createStatement();
-	             ResultSet resultSet = statement.executeQuery(query)) {
-	            while (resultSet.next()) {
-	                String id = resultSet.getString("ID");
-	                String activity = resultSet.getString("Activities");
-	                dashboardModel.addRow(new Object[]{id, activity});
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	}
+	
 
 }

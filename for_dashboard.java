@@ -87,7 +87,7 @@ public class for_dashboard extends JFrame {
 	
 	     // Create the profile label with the scaled icon
 	     JLabel profileLabel = new JLabel(scaledProfileIcon);
-	     profileLabel.setBounds(760, 16, 30, 54);
+	     profileLabel.setBounds(750, 16, 30, 54);
 	     profileLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
 	     // Add the profile label to the headerPanel
@@ -106,21 +106,11 @@ public class for_dashboard extends JFrame {
         JButton home = new JButton("DASHBOARD");
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (mode.equals("students")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_dashboard db = new for_dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		dashboard db = new dashboard();
-            		db.setVisible(true);
-            		dispose();
-            	}
+            	dashboard.displayDashboard();
+            	dashboard db = new dashboard();
+        		db.setVisible(true);
+        		dashboard.displayDashboard();
+        		dispose();
             }
         });
         home.setBackground(Color.decode("#eae2d9"));
@@ -242,7 +232,7 @@ public class for_dashboard extends JFrame {
                     dispose();
                 }
                 if (mode.equals("teachers")) {
-                    resultForTeacher res = new resultForTeacher();
+                	admin_result res = new admin_result();
                     res.setVisible(true);
                     dispose();
                 }

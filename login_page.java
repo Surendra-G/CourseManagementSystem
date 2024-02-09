@@ -116,18 +116,21 @@ public class login_page extends JFrame {
                                     case "Admin":
                                         dashboard db_Admin = new dashboard();
                                         db_Admin.setVisible(true);
+                                        dashboard.displayDashboard();
                                         activity.Activity();
                                         dispose();
                                         break;
                                     case "Student":
                                     	dashboard db_student = new dashboard();
                                     	db_student.setVisible(true);
+                                    	dashboard.displayDashboard();
                                     	activity.Activity();
                                         dispose();
                                         break;
                                     case "Teacher":
                                     	dashboard db_teacher = new dashboard();
                                     	db_teacher.setVisible(true);
+                                    	dashboard.displayDashboard();
                                     	activity.Activity();
                                         dispose();
                                         break;
