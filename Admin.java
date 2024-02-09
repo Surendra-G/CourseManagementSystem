@@ -280,6 +280,13 @@ public class Admin extends JFrame {
         contentPanel.add(lblNewLabel_1);
         
         JButton teacher_add_btn = new JButton("Add ");
+        teacher_add_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		add_admin add_ad = new add_admin();
+        		add_ad.setVisible(true);
+        		dispose();
+        	}
+        });
         teacher_add_btn.setBounds(341, 79, 85, 30);
         contentPanel.add(teacher_add_btn);
         
@@ -287,11 +294,21 @@ public class Admin extends JFrame {
         teacher_edit_btn.setBounds(436, 79, 85, 30);
         teacher_edit_btn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		edit_admin edit_ad = new edit_admin();
+        		edit_ad.setVisible(true);
+        		dispose();
         	}
         });
         contentPanel.add(teacher_edit_btn);
         
         JButton teacher_delete_btn = new JButton("Delete");
+        teacher_delete_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		delete_admin delad = new delete_admin();
+        		delad.setVisible(true);
+        		dispose();
+        	}
+        });
         teacher_delete_btn.setBounds(531, 79, 85, 30);
         contentPanel.add(teacher_delete_btn);
         

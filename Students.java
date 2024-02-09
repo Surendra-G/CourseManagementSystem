@@ -285,6 +285,13 @@ public class Students extends JFrame {
         contentPanel.add(lblNewLabel_1);
         
         JButton teacher_add_btn = new JButton("Add ");
+        teacher_add_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		add_student adstud = new add_student();
+        		adstud.setVisible(true);
+        		dispose();
+        	}
+        });
         teacher_add_btn.setBounds(341, 79, 85, 30);
         contentPanel.add(teacher_add_btn);
         
@@ -292,11 +299,22 @@ public class Students extends JFrame {
         teacher_edit_btn.setBounds(436, 79, 85, 30);
         teacher_edit_btn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		edit_student edstud = new edit_student();
+        		edstud.setVisible(true);
+        		dispose();
+        		
         	}
         });
         contentPanel.add(teacher_edit_btn);
         
         JButton teacher_delete_btn = new JButton("Delete");
+        teacher_delete_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		delete_student delstud = new delete_student();
+        		delstud.setVisible(true);
+        		dispose();
+        	}
+        });
         teacher_delete_btn.setBounds(531, 79, 85, 30);
         contentPanel.add(teacher_delete_btn);
         

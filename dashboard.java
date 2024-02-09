@@ -1,26 +1,7 @@
 package FinalPortfolio;
 import FinalPortfolio.database;
 import FinalPortfolio.signup_page;
-//for Admin
-import FinalPortfolio_Admin.Admin_add;
-import FinalPortfolio_Admin.Admin_delete;
-import FinalPortfolio_Admin.Admin_display;
-import FinalPortfolio_Admin.Admin_edit;
-//for course
-import FinalPortfolio.course.course_add;
-import FinalPortfolio.course.course_edit;
-import FinalPortfolio.course.course_delete;
-import FinalPortfolio.course.course_display;
-//for Students
-import FinalPortfolio.Student.Student_add;
-import FinalPortfolio.Student.Student_delete;
-import FinalPortfolio.Student.Student_edit;
-import FinalPortfolio.Student.Student_display;
-//for Teacher
-import FinalPortfolio.Teacher.Teacher_add;
-import FinalPortfolio.Teacher.Teacher_edit;
-import FinalPortfolio.Teacher.Teacher_delete;
-import FinalPortfolio.Teacher.Teacher_display;
+
 
 
 

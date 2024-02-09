@@ -71,6 +71,18 @@ public class database {
             try (PreparedStatement statement = connection.prepareStatement(createAdminTableQuery)) {
                 statement.executeUpdate();
             }
+            
+         // Creating the Admin table if it doesn't exist in the database
+            String createCourseTableQuery = "CREATE TABLE IF NOT EXISTS Course ("
+                    + "CourseID INT AUTO_INCREMENT PRIMARY KEY, "
+                    + "Module VARCHAR(50) UNIQUE NOT NULL, "
+                    + "CourseName VARCHAR(50) NOT NULL, "
+                    + "Batch INT NOT NULL, "
+                    + "Seats INT NOT NULL, "
+                    + "Years INT NOT NULL)";
+            try (PreparedStatement statement = connection.prepareStatement(createCourseTableQuery)) {
+                statement.executeUpdate();
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();

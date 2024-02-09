@@ -117,13 +117,13 @@ public class login_page extends JFrame {
                                         dispose();
                                         break;
                                     case "Student":
-                                        for_student db_Student = new for_student();
-                                        db_Student.setVisible(true);
+                                    	dashboard db_student = new dashboard();
+                                    	db_student.setVisible(true);
                                         dispose();
                                         break;
                                     case "Teacher":
-                                        for_teacher db_Teacher = new for_teacher();
-                                        db_Teacher.setVisible(true);
+                                    	dashboard db_teacher = new dashboard();
+                                    	db_teacher.setVisible(true);
                                         dispose();
                                         break;
                                     default:

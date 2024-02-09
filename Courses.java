@@ -282,6 +282,13 @@ public class Courses extends JFrame {
         contentPanel.add(lblNewLabel_1);
         
         JButton btnNewButton = new JButton("Add ");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		add_course add_cou = new add_course();
+        		add_cou.setVisible(true);
+        		dispose();
+        	}
+        });
         btnNewButton.setBounds(358, 85, 85, 30);
         contentPanel.add(btnNewButton);
         
@@ -289,11 +296,21 @@ public class Courses extends JFrame {
         btnNewButton_1.setBounds(453, 85, 85, 30);
         btnNewButton_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		edit_course editcour = new edit_course();
+        		editcour.setVisible(true);
+        		dispose();
         	}
         });
         contentPanel.add(btnNewButton_1);
         
         JButton btnNewButton_2 = new JButton("Delete");
+        btnNewButton_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		delete_course delcour = new delete_course();
+        		delcour.setVisible(true);
+        		dispose();
+        	}
+        });
         btnNewButton_2.setBounds(548, 85, 85, 30);
         contentPanel.add(btnNewButton_2);
         

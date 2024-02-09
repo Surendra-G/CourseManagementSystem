@@ -178,7 +178,7 @@ public class for_teacher extends JFrame {
             		dispose();
             	}
             	if(mode.equals("teachers")) {
-            		Students stud = new Students();
+            		for_student stud = new for_student();
             		stud.setVisible(true);
             		dispose();
             	}
