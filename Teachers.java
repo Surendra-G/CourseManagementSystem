@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -286,11 +287,11 @@ public class Teachers extends JFrame {
         contentPanel.add(lblNewLabel_1);
 
         JButton teacher_add_btn = new JButton("Add ");
-        teacher_add_btn.setBounds(358, 85, 85, 30);
+        teacher_add_btn.setBounds(370, 85, 85, 30);
         contentPanel.add(teacher_add_btn);
 
         JButton teacher_edit_btn = new JButton("Edit");
-        teacher_edit_btn.setBounds(453, 85, 85, 30);
+        teacher_edit_btn.setBounds(460, 85, 85, 30);
         teacher_edit_btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
@@ -302,7 +303,7 @@ public class Teachers extends JFrame {
         contentPanel.add(teacher_delete_btn);
 
         teacher_input = new JTextField();
-        teacher_input.setBounds(21, 83, 327, 36);
+        teacher_input.setBounds(21, 83, 249, 36);
         contentPanel.add(teacher_input);
         teacher_input.setColumns(10);
 
@@ -316,6 +317,58 @@ public class Teachers extends JFrame {
             new Object[][] {},
             new String[] {"ID", "FirstName", "LastName", "Email", "Course"}
         ));
+        
+        JButton teacher_add_btn_1 = new JButton("Search ");
+        teacher_add_btn_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		 String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+        	        String username = "root";
+        	        String password = "";
+
+        	        String searchQuery = teacher_input.getText().trim();
+
+        	        if (searchQuery.isEmpty()) {
+        	            JOptionPane.showMessageDialog(null, "Please enter a search query.");
+        	            return;
+        	        }
+
+        	        String query = "SELECT * FROM Teachers WHERE TeacherID LIKE '%" + searchQuery + "%'";
+
+        	        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+        	            try (Statement statement = connection.createStatement();
+        	                 ResultSet resultSet = statement.executeQuery(query)) {
+        	                DefaultTableModel model = (DefaultTableModel) teacherInfoTable.getModel();
+        	                model.setRowCount(0); // Clear existing rows before populating with search results
+
+        	                // Variables to hold the searched result and other results
+        	                Object[] searchedRow = null;
+        	                while (resultSet.next()) {
+        	                    String id = resultSet.getString(1);
+        	                    String firstname = resultSet.getString(2);
+        	                    String lastname = resultSet.getString(3);
+        	                    String email = resultSet.getString(7);
+        	                    String course = resultSet.getString(6);
+        	                    String[] data = {id, firstname, lastname, email, course};
+
+        	                    // Check if the ID contains the search query
+        	                    if (id.contains(searchQuery)) {
+        	                        // Add the searched result to the top of the table
+        	                        model.insertRow(0, data);
+        	                    } else {
+        	                        // Add other results to the table
+        	                        model.addRow(data);
+        	                    }
+        	                }
+
+        	            }
+        	        } catch (SQLException ex) {
+        	            ex.printStackTrace();
+        	            JOptionPane.showMessageDialog(null, "Failed to search for data: " + ex.getMessage());
+        	        }
+        	}
+        });
+        teacher_add_btn_1.setBounds(280, 85, 85, 30);
+        contentPanel.add(teacher_add_btn_1);
 
         // Footer Panel
         JPanel footerPanel = new JPanel();

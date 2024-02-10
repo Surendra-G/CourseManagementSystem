@@ -313,7 +313,7 @@ public class student_result extends JFrame {
 
                 // Perform the search query
                 try (Connection connection = DriverManager.getConnection(url, username, password)) {
-                    String query = "SELECT * FROM result WHERE column_name LIKE '%" + searchQuery + "%'";
+                    String query = "SELECT * FROM result WHERE ID LIKE '%" + searchQuery + "%'";
                     try (Statement statement = connection.createStatement();
                          ResultSet resultSet = statement.executeQuery(query)) {
                         DefaultTableModel model = (DefaultTableModel)studentResultTable.getModel();

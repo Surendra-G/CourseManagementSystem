@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -287,6 +288,54 @@ public class for_teacher extends JFrame {
         contentPanel.add(lblNewLabel_1);
         
         JButton teacher_add_btn = new JButton("Search ");
+        teacher_add_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		 String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+     	        String username = "root";
+     	        String password = "";
+
+     	        String searchQuery = textField.getText().trim();
+
+     	        if (searchQuery.isEmpty()) {
+     	            JOptionPane.showMessageDialog(null, "Please enter a search query.");
+     	            return;
+     	        }
+
+     	        String query = "SELECT * FROM Teachers WHERE TeacherID LIKE '%" + searchQuery + "%'";
+
+     	        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+     	            try (Statement statement = connection.createStatement();
+     	                 ResultSet resultSet = statement.executeQuery(query)) {
+     	                DefaultTableModel model = (DefaultTableModel) forteachertable.getModel();
+     	                model.setRowCount(0); // Clear existing rows before populating with search results
+
+     	                // Variables to hold the searched result and other results
+     	                Object[] searchedRow = null;
+     	                while (resultSet.next()) {
+     	                    String id = resultSet.getString(1);
+     	                    String firstname = resultSet.getString(2);
+     	                    String lastname = resultSet.getString(3);
+     	                    String email = resultSet.getString(7);
+     	                    String course = resultSet.getString(6);
+     	                    String[] data = {id, firstname, lastname, email, course};
+
+     	                    // Check if the ID contains the search query
+     	                    if (id.contains(searchQuery)) {
+     	                        // Add the searched result to the top of the table
+     	                        model.insertRow(0, data);
+     	                    } else {
+     	                        // Add other results to the table
+     	                        model.addRow(data);
+     	                    }
+     	                }
+
+     	            }
+     	        } catch (SQLException ex) {
+     	            ex.printStackTrace();
+     	            JOptionPane.showMessageDialog(null, "Failed to search for data: " + ex.getMessage());
+     	        }
+        	}
+        });
         teacher_add_btn.setBounds(458, 79, 161, 30);
         contentPanel.add(teacher_add_btn);
         

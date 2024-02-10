@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,7 +37,7 @@ public class Students extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField searchStudent;
 	private static JTable studentInfoTable;
 
 	/**
@@ -285,10 +286,10 @@ public class Students extends JFrame {
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
         contentPanel.add(lblNewLabel);
         
-        textField = new JTextField();
-        textField.setBounds(20, 77, 313, 36);
-        contentPanel.add(textField);
-        textField.setColumns(10);
+        searchStudent = new JTextField();
+        searchStudent.setBounds(20, 77, 215, 36);
+        contentPanel.add(searchStudent);
+        searchStudent.setColumns(10);
         
         JLabel lblNewLabel_1 = new JLabel("--------------------------------------------------------------------------------------------------------------------------------------------------");
         lblNewLabel_1.setBounds(46, 36, 630, 22);
@@ -341,6 +342,57 @@ public class Students extends JFrame {
         		"ID", "FirstName", "LastName", "Email", "Course"
         	}
         ));
+        
+        JButton teacher_add_btn_1 = new JButton("Search");
+        teacher_add_btn_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		  String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+        	        String username = "root";
+        	        String password = "";
+
+        	        String searchQuery = searchStudent.getText().trim();
+
+        	        if (searchQuery.isEmpty()) {
+        	            JOptionPane.showMessageDialog(null, "Please enter a search query.");
+        	            return;
+        	        }
+
+        	        String query = "SELECT * FROM Students WHERE StudentID LIKE '%" + searchQuery + "%'";
+
+        	        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+        	            try (Statement statement = connection.createStatement();
+        	                 ResultSet resultSet = statement.executeQuery(query)) {
+        	                DefaultTableModel model = (DefaultTableModel) studentInfoTable.getModel();
+        	                model.setRowCount(0); // Clear existing rows before populating with search results
+
+        	                // Variables to hold the searched result and other results
+        	                while (resultSet.next()) {
+        	                    String id = resultSet.getString(1);
+        	                    String firstname = resultSet.getString(2);
+        	                    String lastname = resultSet.getString(3);
+        	                    String email = resultSet.getString(7);
+        	                    String course = resultSet.getString(6);
+        	                    String[] data = {id, firstname, lastname, email, course};
+
+        	                    // Check if the ID contains the search query
+        	                    if (id.contains(searchQuery)) {
+        	                        // Add the searched result to the top of the table
+        	                        model.insertRow(0, data);
+        	                    } else {
+        	                        // Add other results to the table
+        	                        model.addRow(data);
+        	                    }
+        	                }
+        	            }
+        	        } catch (SQLException ex) {
+        	            ex.printStackTrace();
+        	            JOptionPane.showMessageDialog(null, "Failed to search for data: " + ex.getMessage());
+        	        }
+
+        	}
+        });
+        teacher_add_btn_1.setBounds(246, 79, 85, 30);
+        contentPanel.add(teacher_add_btn_1);
         
         
         

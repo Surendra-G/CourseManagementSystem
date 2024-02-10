@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -297,6 +298,57 @@ public class teacher_result extends JFrame {
         JButton btnNewButton = new JButton("Search");
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+                String username = "root";
+                String password = "";
+
+                // Retrieve the search query from the text field
+                String searchQuery = textField.getText().trim();
+
+                // Validate if the search query is empty
+                if (searchQuery.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a search query.");
+                    return;
+                }
+
+                // Perform the search query
+                try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                    String query = "SELECT * FROM result WHERE ID LIKE '%" + searchQuery + "%'";
+                    try (Statement statement = connection.createStatement();
+                         ResultSet resultSet = statement.executeQuery(query)) {
+                        DefaultTableModel model = (DefaultTableModel) teacherresult.getModel();
+                        model.setRowCount(0); // Clear existing rows before populating with search results
+                        
+                        // Variables to hold the searched result and other results
+                        Object[] searchedRow = null;
+                        while (resultSet.next()) {
+                            String id = resultSet.getString(1);
+                            String firstname = resultSet.getString(2);
+                            String lastname = resultSet.getString(3);
+                            String email = resultSet.getString(4);
+                            String module = resultSet.getString(5);
+                            String CourseName = resultSet.getString(6);
+                            String marks = resultSet.getString(7);
+                            String[] data = {id, firstname, lastname, email, module, CourseName, marks};
+                            
+                            if (id.equals(searchQuery)) {
+                                // Save the searched result separately
+                                searchedRow = data;
+                            } else {
+                                // Add other results to the table
+                                model.addRow(data);
+                            }
+                        }
+                        
+                        // Add the searched result at the top of the table
+                        if (searchedRow != null) {
+                            model.addRow(searchedRow);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to search for data: " + ex.getMessage());
+                }
         	}
         });
         btnNewButton.setBounds(431, 80, 75, 30);
