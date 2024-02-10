@@ -12,6 +12,11 @@ import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,7 +36,7 @@ public class for_admin extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTable table;
+	private JTable adminforstudent;
 
 	/**
 	 * Launch the application.
@@ -48,6 +53,44 @@ public class for_admin extends JFrame {
 			}
 		});
 	}
+	
+	 public void displayadminforstudent() {
+	    	
+	    	if (adminforstudent == null) {
+	            System.err.println("AdminDetailTable is null. Please initialize it.");
+	            return;
+	        }
+	    	
+	        DefaultTableModel AdminforstudentModel = (DefaultTableModel)adminforstudent.getModel();
+	        if (AdminforstudentModel == null) {
+	            System.err.println("AdminModel is null. Please initialize it.");
+	            return;
+	        }
+	        AdminforstudentModel.setRowCount(0);
+
+	        String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+	        String username = "root";
+	        String password = "";
+
+	        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+	            String query = "SELECT * FROM admin";
+	            try (Statement statement = connection.createStatement();
+	                 ResultSet resultSet = statement.executeQuery(query)) {
+	                while (resultSet.next()) {
+	                    int id = resultSet.getInt(1);
+	                    String firstName = resultSet.getString(2);
+	                    String lastName = resultSet.getString(3);
+	                    String email = resultSet.getString(7);
+	                    String course = resultSet.getString(6);
+	                    String idString = String.valueOf(id);
+	                    String data[] = {idString, firstName, lastName, email, course };
+	                    AdminforstudentModel .addRow(data);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 	/**
 	 * Create the frame.
@@ -120,70 +163,49 @@ public class for_admin extends JFrame {
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Admin.displayadminInfo();
-        		if (mode.equals("students")) {
-            		for_admin ad = new for_admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}else if(mode.equals("teachers")) {
-            		for_admin ad = new for_admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}else if(mode.equals("admin")) {
-            		Admin ad = new Admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
+        		if (mode.equals("students") || (mode.equals("teachers")) ) {
+                    for_admin ad = new for_admin();
+                    ad.displayadminforstudent();
+                    ad.setVisible(true);
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    Admin admin = new Admin();
+                	admin.displayadminInfo();
+                    admin.setVisible(true);
+                    dispose();
+                }
         	}
         });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Teachers.displayteacherInfo();
-        		if(mode.equals("students")) {
-            		for_teacher teach = new for_teacher();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}else if(mode.equals("teachers")) {
-            		for_teacher teach = new for_teacher();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}else if(mode.equals("admin")) {
-            		Teachers teach = new Teachers();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
+        		if (mode.equals("students")|| mode.equals("teachers") ) {
+                    for_teacher teach = new for_teacher();
+                    teach.displayteachertableInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    Teachers teach = new Teachers();
+                    teach.displayteacherInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }
         	}
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Students student = new Students();
-            	student.displaystudentInfo();
-                if(mode.equals("students")) {
+        		if(mode.equals("students") || (mode.equals("teachers")) ) {
                     for_student stud = new for_student();
                     stud.setVisible(true);
-                    student.displaystudentInfo();
+                    stud.displaystudenttableInfo();
                     dispose();
-                }
-                if(mode.equals("teachers")) {
+                }else if(mode.equals("admin")) {
                     Students stud = new Students();
                     stud.setVisible(true);
-                    student.displaystudentInfo();
-                    dispose();
-                }
-                if(mode.equals("admin")) {
-                    Students stud = new Students();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
+                    stud.displaystudentInfo();
                     dispose();
                 }
         	}
@@ -238,14 +260,17 @@ public class for_admin extends JFrame {
         		if (mode.equals("students")) {
                     student_result res = new student_result();
                     res.setVisible(true);
+                    res.displayresultforstudent();
                     dispose();
                 }else if (mode.equals("teachers")) {
                 	admin_result res = new admin_result();
                     res.setVisible(true);
+                    res.displayresult();
                     dispose();
                 }else if (mode.equals("admin")) {
                     admin_result res = new admin_result();
                     res.setVisible(true);
+                    res.displayresult();
                     dispose();
                 }
         	}
@@ -284,9 +309,9 @@ public class for_admin extends JFrame {
         scrollPane.setBounds(33, 120, 603, 312);
         contentPanel.add(scrollPane);
         
-        table = new JTable();
-        scrollPane.setViewportView(table);
-        table.setModel(new DefaultTableModel(
+        adminforstudent = new JTable();
+        scrollPane.setViewportView(adminforstudent);
+        adminforstudent.setModel(new DefaultTableModel(
         	new Object[][] {
         	},
         	new String[] {

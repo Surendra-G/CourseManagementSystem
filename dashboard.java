@@ -31,7 +31,6 @@ public class dashboard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private  static JTable table_1;
 	private static JTable dashboardTable2;
 	
 
@@ -128,12 +127,8 @@ public class dashboard extends JFrame {
         user_name.setBounds(615, 16, 175, 54);
         headerPanel.add(user_name);
         
-//        Admin.displayadminInfo();
-//        Teachers.displayteacherInfo();
-//        Students.displaystudentInfo();
-//        admin_result.displayresult();
         
-     // Side Panel
+        // Side Panel
         JPanel sidePanel = new JPanel(new GridLayout(0, 1));
         sidePanel.setPreferredSize(new Dimension(140, 0));
         JButton home = new JButton("DASHBOARD");
@@ -151,23 +146,15 @@ public class dashboard extends JFrame {
         JButton admin_panel = new JButton("Admin");
         admin_panel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Admin.displayadminInfo();
-                if ("students".equals(mode)) {
+                if (mode.equals("students") || (mode.equals("teachers")) ) {
                     for_admin ad = new for_admin();
+                    ad.displayadminforstudent();
                     ad.setVisible(true);
-                    Admin.displayadminInfo();
                     dispose();
-                }
-                if("teachers".equals(mode)) {
-                    for_admin ad = new for_admin();
-                    ad.setVisible(true);
-                    Admin.displayadminInfo();
-                    dispose();
-                }
-                if("admin".equals(mode)) {
-                    Admin ad = new Admin();
-                    ad.setVisible(true);
-                    Admin.displayadminInfo();
+                }else if (mode.equals("admin")) {
+                    Admin admin = new Admin();
+                	admin.displayadminInfo();
+                    admin.setVisible(true);
                     dispose();
                 }
         	}
@@ -176,43 +163,34 @@ public class dashboard extends JFrame {
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode.equals("students") || mode.equals("teachers") ) {
-            		for_teacher teach = new for_teacher();
-            		Teachers.displayteacherInfo();
-            		teach.setVisible(true);
-            		dispose();
-            	}else if(mode.equals("admin")) {
-            		Teachers teach = new Teachers();
-            		Teachers.displayteacherInfo();
-            		teach.setVisible(true);
-            		dispose();
-            	}
+        		if (mode.equals("students")|| mode.equals("teachers") ) {
+                    for_teacher teach = new for_teacher();
+                    teach.displayteachertableInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    Teachers teach = new Teachers();
+                    teach.displayteacherInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }
         	}
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Students student = new Students();
-            	student.displaystudentInfo();
-                if(mode.equals("students")) {
-                    for_student stud = new for_student();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
-                    dispose();
-                }
-                if(mode.equals("teachers")) {
-                    Students stud = new Students();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
-                    dispose();
-                }
-                if(mode.equals("admin")) {
-                    Students stud = new Students();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
-                    dispose();
-                }
+        		 if(mode.equals("students") || (mode.equals("teachers")) ) {
+                     for_student stud = new for_student();
+                     stud.setVisible(true);
+                     stud.displaystudenttableInfo();
+                     dispose();
+                 }else if(mode.equals("admin")) {
+                     Students stud = new Students();
+                     stud.setVisible(true);
+                     stud.displaystudentInfo();
+                     dispose();
+                 }
         	}
         });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
@@ -265,12 +243,17 @@ public class dashboard extends JFrame {
         		if (mode.equals("students")) {
                     student_result res = new student_result();
                     res.setVisible(true);
-                    admin_result.displayresult();
+                    res.displayresultforstudent();
                     dispose();
-                }else if (mode.equals("teachers") || mode.equals("admin")) {
+                }else if (mode.equals("teachers")) {
                 	admin_result res = new admin_result();
                     res.setVisible(true);
-                    admin_result.displayresult();
+                    res.displayresult();
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    admin_result res = new admin_result();
+                    res.setVisible(true);
+                    res.displayresult();
                     dispose();
                 }
         	}

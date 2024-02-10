@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -54,7 +55,7 @@ public class admin_result extends JFrame {
 		});
 	}
 	
-	public static void displayresult() {
+	public void displayresult() {
 	    DefaultTableModel resultModel = (DefaultTableModel)adminresult.getModel();
 	    resultModel.setRowCount(0); // Clear existing rows
 
@@ -155,74 +156,49 @@ public class admin_result extends JFrame {
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Admin.displayadminInfo();
-        		if (mode.equals("students")) {
-            		for_admin ad = new for_admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_admin ad = new for_admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Admin ad = new Admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
+        		if (mode.equals("students") || (mode.equals("teachers")) ) {
+                    for_admin ad = new for_admin();
+                    ad.displayadminforstudent();
+                    ad.setVisible(true);
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    Admin admin = new Admin();
+                	admin.displayadminInfo();
+                    admin.setVisible(true);
+                    dispose();
+                }
         	}
         });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Teachers.displayteacherInfo();
-        		if(mode.equals("students")) {
-            		for_teacher teach = new for_teacher();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_teacher teach = new for_teacher();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Teachers teach = new Teachers();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
+        		if (mode.equals("students")|| mode.equals("teachers") ) {
+                    for_teacher teach = new for_teacher();
+                    teach.displayteachertableInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    Teachers teach = new Teachers();
+                    teach.displayteacherInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }
         	}
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Students student = new Students();
-            	student.displaystudentInfo();
-                if(mode.equals("students")) {
+        		if(mode.equals("students") || (mode.equals("teachers")) ) {
                     for_student stud = new for_student();
                     stud.setVisible(true);
-                    student.displaystudentInfo();
+                    stud.displaystudenttableInfo();
                     dispose();
-                }
-                if(mode.equals("teachers")) {
+                }else if(mode.equals("admin")) {
                     Students stud = new Students();
                     stud.setVisible(true);
-                    student.displaystudentInfo();
-                    dispose();
-                }
-                if(mode.equals("admin")) {
-                    Students stud = new Students();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
+                    stud.displaystudentInfo();
                     dispose();
                 }
         	}
@@ -236,13 +212,11 @@ public class admin_result extends JFrame {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
-            	}
-            	if(mode.equals("teachers")) {
+            	}else if(mode.equals("teachers")) {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
-            	}
-            	if(mode.equals("admin")) {
+            	}else if(mode.equals("admin")) {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
@@ -276,23 +250,20 @@ public class admin_result extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		displayresult();
         		if (mode.equals("students")) {
                     student_result res = new student_result();
                     res.setVisible(true);
-                    admin_result.displayresult();
+                    res.displayresultforstudent();
                     dispose();
-                }
-                if (mode.equals("teachers")) {
+                }else if (mode.equals("teachers")) {
                 	admin_result res = new admin_result();
                     res.setVisible(true);
-                    admin_result.displayresult();
+                    res.displayresult();
                     dispose();
-                }
-                if (mode.equals("admin")) {
+                }else if (mode.equals("admin")) {
                     admin_result res = new admin_result();
                     res.setVisible(true);
-                    admin_result.displayresult();
+                    res.displayresult();
                     dispose();
                 }
         	}
@@ -364,6 +335,61 @@ public class admin_result extends JFrame {
         contentPanel.add(btnDeleteResult);
         
         JButton btnSearch = new JButton("Search");
+        btnSearch.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
+                String username = "root";
+                String password = "";
+
+                // Retrieve the search query from the text field
+                String searchQuery = textField.getText().trim();
+
+                // Validate if the search query is empty
+                if (searchQuery.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a search query.");
+                    return;
+                }
+
+                // Perform the search query
+                try (Connection connection = DriverManager.getConnection(url, username, password)) {
+                    String query = "SELECT * FROM result WHERE ID LIKE '%" + searchQuery + "%'";
+                    try (Statement statement = connection.createStatement();
+                         ResultSet resultSet = statement.executeQuery(query)) {
+                        DefaultTableModel model = (DefaultTableModel) adminresult.getModel();
+                        model.setRowCount(0); // Clear existing rows before populating with search results
+                        
+                        // Variables to hold the searched result and other results
+                        Object[] searchedRow = null;
+                        while (resultSet.next()) {
+                            String id = resultSet.getString(1);
+                            String firstname = resultSet.getString(2);
+                            String lastname = resultSet.getString(3);
+                            String email = resultSet.getString(4);
+                            String module = resultSet.getString(5);
+                            String CourseName = resultSet.getString(6);
+                            String marks = resultSet.getString(7);
+                            String[] data = {id, firstname, lastname, email, module, CourseName, marks};
+                            
+                            if (id.equals(searchQuery)) {
+                                // Save the searched result separately
+                                searchedRow = data;
+                            } else {
+                                // Add other results to the table
+                                model.addRow(data);
+                            }
+                        }
+                        
+                        // Add the searched result at the top of the table
+                        if (searchedRow != null) {
+                            model.addRow(searchedRow);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to search for data: " + ex.getMessage());
+                }
+        	}
+        });
         btnSearch.setBounds(345, 80, 75, 30);
         contentPanel.add(btnSearch);
         

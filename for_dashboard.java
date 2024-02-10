@@ -118,74 +118,55 @@ public class for_dashboard extends JFrame {
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Admin.displayadminInfo();
-        		if (mode.equals("students")) {
-            		for_admin ad = new for_admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_admin ad = new for_admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Admin ad = new Admin();
-            		ad.setVisible(true);
-            		Admin.displayadminInfo();
-            		dispose();
-            	}
+        		if (mode.equals("students") ) {
+                    for_admin ad = new for_admin();
+                    ad.displayadminforstudent();
+                    ad.setVisible(true);
+                    dispose();
+                }else if (mode.equals("teachers")) {
+                	 for_admin ad2 = new for_admin();
+                	 ad2.displayadminforstudent();
+                     ad2.setVisible(true);
+                     dispose();
+                }else if (mode.equals("admin")) {
+                    Admin a = new Admin();
+                    Admin admin = new Admin();
+                	admin.displayadminInfo();
+                    a.setVisible(true);
+                    dispose();
+                }
         	}
         });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Teachers.displayteacherInfo();
-        		if(mode.equals("students")) {
-            		for_teacher teach = new for_teacher();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_teacher teach = new for_teacher();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Teachers teach = new Teachers();
-            		teach.setVisible(true);
-            		Teachers.displayteacherInfo();
-            		dispose();
-            	}
+        		if (mode.equals("students")|| mode.equals("teachers") ) {
+                    for_teacher teach = new for_teacher();
+                    teach.displayteachertableInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }else if (mode.equals("admin")) {
+                    Teachers teach = new Teachers();
+                    teach.displayteacherInfo();
+                    teach.setVisible(true);
+                    dispose();
+                }
         	}
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Students student = new Students();
-            	student.displaystudentInfo();
-                if(mode.equals("students")) {
-                    for_student stud = new for_student();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
+        		if (mode.equals("students") || (mode.equals("teachers")) ) {
+                    for_admin ad = new for_admin();
+                    ad.displayadminforstudent();
+                    ad.setVisible(true);
                     dispose();
-                }
-                if(mode.equals("teachers")) {
-                    Students stud = new Students();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
-                    dispose();
-                }
-                if(mode.equals("admin")) {
-                    Students stud = new Students();
-                    stud.setVisible(true);
-                    student.displaystudentInfo();
+                }else if (mode.equals("admin")) {
+                    Admin admin = new Admin();
+                	admin.displayadminInfo();
+                    admin.setVisible(true);
                     dispose();
                 }
         	}
@@ -199,13 +180,11 @@ public class for_dashboard extends JFrame {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
-            	}
-            	if(mode.equals("teachers")) {
+            	}else if(mode.equals("teachers")) {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
-            	}
-            	if(mode.equals("admin")) {
+            	}else if(mode.equals("admin")) {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
@@ -242,16 +221,17 @@ public class for_dashboard extends JFrame {
         		if (mode.equals("students")) {
                     student_result res = new student_result();
                     res.setVisible(true);
+                    res.displayresultforstudent();
                     dispose();
-                }
-                if (mode.equals("teachers")) {
+                }else if (mode.equals("teachers")) {
                 	admin_result res = new admin_result();
                     res.setVisible(true);
+                    res.displayresult();
                     dispose();
-                }
-                if (mode.equals("admin")) {
+                }else if (mode.equals("admin")) {
                     admin_result res = new admin_result();
                     res.setVisible(true);
+                    res.displayresult();
                     dispose();
                 }
         	}
