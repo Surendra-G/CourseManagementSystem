@@ -58,6 +58,7 @@ public class add_student extends JFrame {
 	public add_student() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 779, 503);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -234,12 +235,24 @@ public class add_student extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(391, 370, 134, 42);
+		btnNewButton.setBounds(277, 371, 134, 42);
 		contentPane.add(btnNewButton);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("show");
 		chckbxNewCheckBox.setBounds(482, 309, 93, 21);
 		contentPane.add(chckbxNewCheckBox);
+		
+		JButton btnNewButton_1 = new JButton("Cancel ");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Students stud = new Students();
+				stud.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton_1.setBounds(461, 371, 134, 42);
+		contentPane.add(btnNewButton_1);
 		
 		
 		chckbxNewCheckBox.addActionListener(new ActionListener() {

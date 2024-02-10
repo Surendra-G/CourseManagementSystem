@@ -53,6 +53,7 @@ public class add_admin extends JFrame {
 	public add_admin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 779, 503);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -61,7 +62,7 @@ public class add_admin extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Add Admin");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(342, 23, 134, 37);
+		lblNewLabel.setBounds(363, 26, 134, 37);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("First Name: ");
@@ -209,7 +210,7 @@ public class add_admin extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(391, 370, 134, 42);
+		btnNewButton.setBounds(302, 372, 134, 42);
 		contentPane.add(btnNewButton);
 		
 		addadmin_fname = new JTextField();
@@ -245,6 +246,18 @@ public class add_admin extends JFrame {
 		addadmin_password = new JPasswordField();
 		addadmin_password.setBounds(228, 310, 224, 31);
 		contentPane.add(addadmin_password);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Admin ad = new Admin();
+				ad.setVisible(true);
+				dispose();
+			}
+		});
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancel.setBounds(496, 372, 134, 42);
+		contentPane.add(btnCancel);
 	}
 
 }

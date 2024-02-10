@@ -45,6 +45,7 @@ public class delete_student extends JFrame {
 	public delete_student() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 621, 363);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -82,7 +83,7 @@ public class delete_student extends JFrame {
                 // Teacher deleted successfully
                 JOptionPane.showMessageDialog(null, "Student Deleted Successfully");
                 dispose();
-                Courses stud = new Courses();
+                Students stud = new Students();
                 stud.setVisible(true);
 
                 // Delete teacher from database

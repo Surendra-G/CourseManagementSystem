@@ -51,8 +51,10 @@ public class add_result extends JFrame {
 	 * Create the frame.
 	 */
 	public add_result() {
+		String mode = login_page.selectMode;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 779, 503);
+		setBounds(100, 100, 785, 518);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -100,7 +102,7 @@ public class add_result extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("Add ");
-		btnNewButton.setBounds(315, 400, 134, 42);
+		btnNewButton.setBounds(219, 400, 134, 42);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String firstName = addresult_fname.getText();
@@ -190,6 +192,19 @@ public class add_result extends JFrame {
 		addresult_marks.setBounds(240, 345, 250, 30);
 		addresult_marks.setColumns(10);
 		contentPane.add(addresult_marks);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				admin_result adres = new admin_result();
+				adres.setVisible(true);
+				dispose();
+				
+			}
+		});
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancel.setBounds(413, 400, 134, 42);
+		contentPane.add(btnCancel);
 	}
 
 }

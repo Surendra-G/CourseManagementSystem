@@ -69,7 +69,8 @@ public class Setting extends JFrame {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(810, 600);
+        setSize(830, 600);
+        setLocationRelativeTo(null);
         setTitle("Course Management System");
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -425,6 +426,9 @@ public class Setting extends JFrame {
 
                         if (rowsAffected >= 0 && !oldpasswordText.equals(newpasswordText)) {
                             JOptionPane.showMessageDialog(null, "Password updated successfully.");
+                            dispose();
+   		                 	Setting stud = new Setting();
+   		                 	stud.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "Failed to update password.");
                         }
@@ -433,6 +437,7 @@ public class Setting extends JFrame {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Failed to connect to the database: " + ex.getMessage());
                 }
+                
 
 		        
         	}

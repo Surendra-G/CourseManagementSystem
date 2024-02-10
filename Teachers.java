@@ -91,7 +91,8 @@ public class Teachers extends JFrame {
         Color color = Color.decode("#eae2d9");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(850, 600);
+        setLocationRelativeTo(null);
         setTitle("Course Management System");
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -287,6 +288,13 @@ public class Teachers extends JFrame {
         contentPanel.add(lblNewLabel_1);
 
         JButton teacher_add_btn = new JButton("Add ");
+        teacher_add_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		add_teacher addteach = new add_teacher();
+        		addteach.setVisible(true);
+        		dispose();
+        	}
+        });
         teacher_add_btn.setBounds(370, 85, 85, 30);
         contentPanel.add(teacher_add_btn);
 
@@ -294,11 +302,21 @@ public class Teachers extends JFrame {
         teacher_edit_btn.setBounds(460, 85, 85, 30);
         teacher_edit_btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	edit_teacher editteach = new edit_teacher();
+            	editteach.setVisible(true);
+            	dispose();
             }
         });
         contentPanel.add(teacher_edit_btn);
 
         JButton teacher_delete_btn = new JButton("Delete");
+        teacher_delete_btn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		delete_teacher deleteteach = new delete_teacher();
+        		deleteteach.setVisible(true);
+        		dispose();
+        	}
+        });
         teacher_delete_btn.setBounds(548, 85, 85, 30);
         contentPanel.add(teacher_delete_btn);
 

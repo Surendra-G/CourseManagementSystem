@@ -95,7 +95,8 @@ public class student_result extends JFrame {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(850, 600);
+        setLocationRelativeTo(null);
         setTitle("Course Management System");
 
         JPanel mainPanel = new JPanel(new BorderLayout());

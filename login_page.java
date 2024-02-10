@@ -52,6 +52,7 @@ public class login_page extends JFrame {
     public login_page() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 914, 504);
+        setLocationRelativeTo(null);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(240, 240, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -170,6 +171,7 @@ public class login_page extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 signup_page lp = new signup_page();
                 lp.setVisible(true);
+                dispose();
             }
         });
         btnNewButton_1.setBounds(253, 359, 70, 23);

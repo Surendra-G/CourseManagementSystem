@@ -94,7 +94,8 @@ public class teacher_result extends JFrame {
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(850, 600);
+        setLocationRelativeTo(null);
         setTitle("Course Management System");
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -355,6 +356,13 @@ public class teacher_result extends JFrame {
         contentPanel.add(btnNewButton);
         
         JButton btnViewReport = new JButton("Add Result");
+        btnViewReport.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		add_result adres = new add_result();
+        		adres.setVisible(true);
+        		dispose();
+        	}
+        });
         btnViewReport.setBounds(516, 80, 100, 30);
         contentPanel.add(btnViewReport);
         
