@@ -24,7 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-
+import FinalPortfolio.login_page;
 
 
 public class dashboard extends JFrame {
@@ -74,16 +74,18 @@ public class dashboard extends JFrame {
 	        e.printStackTrace();
 	    }
 	}
+
 	
 	/**
 	 * Create the frame.
 	 */
 	public dashboard() {
 		String mode = login_page.selectMode;  
+		String email = login_page.mail();
 		Color color = Color.decode("#eae2d9");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(850, 600);
+        setSize(830, 600);
         setLocationRelativeTo(null);
         setTitle("Course Management System");
 
@@ -123,9 +125,11 @@ public class dashboard extends JFrame {
 	     
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         
-        JLabel user_name = new JLabel("UserName");
+        
+        String firstname = login_page.firstName(email);
+        JLabel user_name = new JLabel(firstname);
         user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
-        user_name.setBounds(615, 16, 175, 54);
+        user_name.setBounds(660, 16, 175, 54);
         headerPanel.add(user_name);
         
         
@@ -319,7 +323,7 @@ public class dashboard extends JFrame {
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
         for_course.add(lblNewLabel_3);
         
-        JLabel count_course = new JLabel("0");
+        JLabel count_course = new JLabel("3");
         count_course.setFont(new Font("Tahoma", Font.BOLD, 20));
         count_course.setBounds(53, 57, 45, 25);
         for_course.add(count_course);

@@ -88,10 +88,11 @@ public class Teachers extends JFrame {
      */
     public Teachers() {
         String mode = login_page.selectMode;
+        String email = login_page.mail();
         Color color = Color.decode("#eae2d9");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(850, 600);
+        setSize(830, 600);
         setLocationRelativeTo(null);
         setTitle("Course Management System");
 
@@ -131,9 +132,11 @@ public class Teachers extends JFrame {
 
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
-        JLabel user_name = new JLabel("UserName");
+        
+        String firstname = login_page.firstName(email);
+        JLabel user_name = new JLabel(firstname);
         user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
-        user_name.setBounds(629, 16, 161, 54);
+        user_name.setBounds(660, 16, 161, 54);
         headerPanel.add(user_name);
 
         // Side Panel

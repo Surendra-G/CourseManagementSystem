@@ -65,6 +65,7 @@ public class Setting extends JFrame {
 	 */
 	public Setting() {
 		String mode = login_page.selectMode; 
+		String email = login_page.mail();
 		Color color = Color.decode("#eae2d9");
 
 
@@ -109,9 +110,11 @@ public class Setting extends JFrame {
 	     
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         
-        JLabel user_name = new JLabel("UserName");
+        
+        String firstname = login_page.firstName(email);
+        JLabel user_name = new JLabel(firstname);
         user_name.setFont(new Font("Tahoma", Font.BOLD, 15));
-        user_name.setBounds(629, 16, 161, 54);
+        user_name.setBounds(660, 16, 161, 54);
         headerPanel.add(user_name);
 
      // Side Panel

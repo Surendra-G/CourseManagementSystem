@@ -227,5 +227,25 @@ public class login_page extends JFrame {
         return email;
     }
     
+    public static String firstName(String userEmail) {
+        String firstName = ""; // Initialize to an empty string
+        try (Connection connection = database.getConnection()) {
+            String query = "SELECT FirstName FROM " + selectMode + " WHERE Email = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, userEmail);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        firstName = resultSet.getString("FirstName");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return firstName;
+    }
+
+
+    
 
 }
