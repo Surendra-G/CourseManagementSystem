@@ -55,8 +55,8 @@ public class admin_result extends JFrame {
 	}
 	
 	public static void displayresult() {
-	    DefaultTableModelModel = (DefaultTableModel)adminresult.getModel();
-	    dashboardModel.setRowCount(0); // Clear existing rows
+	    DefaultTableModel resultModel = (DefaultTableModel)adminresult.getModel();
+	    resultModel.setRowCount(0); // Clear existing rows
 
 	    String url = "jdbc:mysql://127.0.0.1:3306/coursemanagementsystem";
 	    String username = "root";
@@ -75,7 +75,7 @@ public class admin_result extends JFrame {
 	                String CourseName = resultSet.getString(6);
 	                String marks = resultSet.getString(7);
 	                String data[]= {id,firstname,lastname,email,module,CourseName,marks	};
-	                dashboardModel.addRow(data);
+	                resultModel.addRow(data);
 	                
 	            }
 	        }
@@ -155,19 +155,23 @@ public class admin_result extends JFrame {
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Admin.displayadminInfo();
         		if (mode.equals("students")) {
             		for_admin ad = new for_admin();
             		ad.setVisible(true);
+            		Admin.displayadminInfo();
             		dispose();
             	}
             	if(mode.equals("teachers")) {
             		for_admin ad = new for_admin();
             		ad.setVisible(true);
+            		Admin.displayadminInfo();
             		dispose();
             	}
             	if(mode.equals("admin")) {
             		Admin ad = new Admin();
             		ad.setVisible(true);
+            		Admin.displayadminInfo();
             		dispose();
             	}
         	}
@@ -176,19 +180,23 @@ public class admin_result extends JFrame {
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Teachers.displayteacherInfo();
         		if(mode.equals("students")) {
             		for_teacher teach = new for_teacher();
             		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
             		dispose();
             	}
             	if(mode.equals("teachers")) {
             		for_teacher teach = new for_teacher();
             		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
             		dispose();
             	}
             	if(mode.equals("admin")) {
             		Teachers teach = new Teachers();
             		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
             		dispose();
             	}
         	}
@@ -197,21 +205,26 @@ public class admin_result extends JFrame {
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode.equals("students")) {
-            		for_student stud = new for_student();
-            		stud.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		Students stud = new Students();
-            		stud.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Students stud = new Students();
-            		stud.setVisible(true);
-            		dispose();
-            	}
+        		Students student = new Students();
+            	student.displaystudentInfo();
+                if(mode.equals("students")) {
+                    for_student stud = new for_student();
+                    stud.setVisible(true);
+                    student.displaystudentInfo();
+                    dispose();
+                }
+                if(mode.equals("teachers")) {
+                    Students stud = new Students();
+                    stud.setVisible(true);
+                    student.displaystudentInfo();
+                    dispose();
+                }
+                if(mode.equals("admin")) {
+                    Students stud = new Students();
+                    stud.setVisible(true);
+                    student.displaystudentInfo();
+                    dispose();
+                }
         	}
         });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
@@ -263,19 +276,23 @@ public class admin_result extends JFrame {
         JButton ResultPanel = new JButton("Result");
         ResultPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		displayresult();
         		if (mode.equals("students")) {
                     student_result res = new student_result();
                     res.setVisible(true);
+                    admin_result.displayresult();
                     dispose();
                 }
                 if (mode.equals("teachers")) {
                 	admin_result res = new admin_result();
                     res.setVisible(true);
+                    admin_result.displayresult();
                     dispose();
                 }
                 if (mode.equals("admin")) {
                     admin_result res = new admin_result();
                     res.setVisible(true);
+                    admin_result.displayresult();
                     dispose();
                 }
         	}
@@ -302,20 +319,26 @@ public class admin_result extends JFrame {
         contentPanel.add(lblNewLabel_1);
         
         textField = new JTextField();
-        textField.setBounds(42, 78, 293, 36);
+        textField.setBounds(42, 78, 299, 36);
         contentPanel.add(textField);
         textField.setColumns(10);
         
-        JButton btnNewButton = new JButton("Add Result");
+        JButton btnNewButton = new JButton("Add");
         btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		add_result res = new add_result();
+        		res.setVisible(true);
+        	}
+        });
+        btnNewButton.setBounds(420, 80, 75, 30);
+        contentPanel.add(btnNewButton);
+        
+        JButton btnViewReport = new JButton("Edit");
+        btnViewReport.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnNewButton.setBounds(340, 80, 75, 30);
-        contentPanel.add(btnNewButton);
-        
-        JButton btnViewReport = new JButton("Edit Result");
-        btnViewReport.setBounds(420, 80, 100, 30);
+        btnViewReport.setBounds(494, 80, 70, 30);
         contentPanel.add(btnViewReport);
         
         JScrollPane scrollPane = new JScrollPane();
@@ -337,8 +360,12 @@ public class admin_result extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         	}
         });
-        btnDeleteResult.setBounds(525, 80, 114, 30);
+        btnDeleteResult.setBounds(564, 80, 75, 30);
         contentPanel.add(btnDeleteResult);
+        
+        JButton btnSearch = new JButton("Search");
+        btnSearch.setBounds(345, 80, 75, 30);
+        contentPanel.add(btnSearch);
         
   
         // Footer Panel
@@ -354,5 +381,4 @@ public class admin_result extends JFrame {
         getContentPane().add(mainPanel);
         setVisible(true);
 	}
-
 }

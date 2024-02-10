@@ -120,19 +120,21 @@ public class for_admin extends JFrame {
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Admin.displayadminInfo();
         		if (mode.equals("students")) {
             		for_admin ad = new for_admin();
             		ad.setVisible(true);
+            		Admin.displayadminInfo();
             		dispose();
-            	}
-            	if(mode.equals("teachers")) {
+            	}else if(mode.equals("teachers")) {
             		for_admin ad = new for_admin();
             		ad.setVisible(true);
+            		Admin.displayadminInfo();
             		dispose();
-            	}
-            	if(mode.equals("admin")) {
+            	}else if(mode.equals("admin")) {
             		Admin ad = new Admin();
             		ad.setVisible(true);
+            		Admin.displayadminInfo();
             		dispose();
             	}
         	}
@@ -141,19 +143,21 @@ public class for_admin extends JFrame {
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Teachers.displayteacherInfo();
         		if(mode.equals("students")) {
             		for_teacher teach = new for_teacher();
             		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
             		dispose();
-            	}
-            	if(mode.equals("teachers")) {
+            	}else if(mode.equals("teachers")) {
             		for_teacher teach = new for_teacher();
             		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
             		dispose();
-            	}
-            	if(mode.equals("admin")) {
+            	}else if(mode.equals("admin")) {
             		Teachers teach = new Teachers();
             		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
             		dispose();
             	}
         	}
@@ -162,21 +166,26 @@ public class for_admin extends JFrame {
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(mode.equals("students")) {
-            		for_student stud = new for_student();
-            		stud.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("teachers")) {
-            		for_student stud = new for_student();
-            		stud.setVisible(true);
-            		dispose();
-            	}
-            	if(mode.equals("admin")) {
-            		Students stud = new Students();
-            		stud.setVisible(true);
-            		dispose();
-            	}
+        		Students student = new Students();
+            	student.displaystudentInfo();
+                if(mode.equals("students")) {
+                    for_student stud = new for_student();
+                    stud.setVisible(true);
+                    student.displaystudentInfo();
+                    dispose();
+                }
+                if(mode.equals("teachers")) {
+                    Students stud = new Students();
+                    stud.setVisible(true);
+                    student.displaystudentInfo();
+                    dispose();
+                }
+                if(mode.equals("admin")) {
+                    Students stud = new Students();
+                    stud.setVisible(true);
+                    student.displaystudentInfo();
+                    dispose();
+                }
         	}
         });
         StudentPanel.setBackground(Color.decode("#eae2d9"));
@@ -188,13 +197,11 @@ public class for_admin extends JFrame {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
-            	}
-            	if(mode.equals("teachers")) {
+            	}else if(mode.equals("teachers")) {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
-            	}
-            	if(mode.equals("admin")) {
+            	}else if(mode.equals("admin")) {
             		Setting set = new Setting();
             		set.setVisible(true);
             		dispose();
@@ -232,13 +239,11 @@ public class for_admin extends JFrame {
                     student_result res = new student_result();
                     res.setVisible(true);
                     dispose();
-                }
-                if (mode.equals("teachers")) {
+                }else if (mode.equals("teachers")) {
                 	admin_result res = new admin_result();
                     res.setVisible(true);
                     dispose();
-                }
-                if (mode.equals("admin")) {
+                }else if (mode.equals("admin")) {
                     admin_result res = new admin_result();
                     res.setVisible(true);
                     dispose();

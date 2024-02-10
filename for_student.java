@@ -120,61 +120,74 @@ public class for_student extends JFrame {
         JButton AdminPanel = new JButton("Admin");
         AdminPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (mode.equals("students")) {
-                    for_admin ad = new for_admin();
-                    ad.setVisible(true);
-                    dispose();
-                }
-                if (mode.equals("teachers")) {
-                    for_admin ad = new for_admin();
-                    ad.setVisible(true);
-                    dispose();
-                }
-                if (mode.equals("admin")) {
-                    Admin ad = new Admin();
-                    ad.setVisible(true);
-                    dispose();
-                }
+            	Admin.displayadminInfo();
+        		if (mode.equals("students")) {
+            		for_admin ad = new for_admin();
+            		ad.setVisible(true);
+            		Admin.displayadminInfo();
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		for_admin ad = new for_admin();
+            		ad.setVisible(true);
+            		Admin.displayadminInfo();
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		Admin ad = new Admin();
+            		ad.setVisible(true);
+            		Admin.displayadminInfo();
+            		dispose();
+            	}
             }
         });
         AdminPanel.setBackground(Color.decode("#eae2d9"));
         JButton TeacherPanel = new JButton("Teacher");
         TeacherPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (mode.equals("students")) {
-                    for_teacher teach = new for_teacher();
-                    teach.setVisible(true);
-                    dispose();
-                }
-                if (mode.equals("teachers")) {
-                    for_teacher teach = new for_teacher();
-                    teach.setVisible(true);
-                    dispose();
-                }
-                if (mode.equals("admin")) {
-                    Teachers teach = new Teachers();
-                    teach.setVisible(true);
-                    dispose();
-                }
+            	Teachers.displayteacherInfo();
+        		if(mode.equals("students")) {
+            		for_teacher teach = new for_teacher();
+            		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
+            		dispose();
+            	}
+            	if(mode.equals("teachers")) {
+            		for_teacher teach = new for_teacher();
+            		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
+            		dispose();
+            	}
+            	if(mode.equals("admin")) {
+            		Teachers teach = new Teachers();
+            		teach.setVisible(true);
+            		Teachers.displayteacherInfo();
+            		dispose();
+            	}
             }
         });
         TeacherPanel.setBackground(Color.decode("#eae2d9"));
         JButton StudentPanel = new JButton("Students");
         StudentPanel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (mode.equals("students")) {
+            	Students student = new Students();
+            	student.displaystudentInfo();
+                if(mode.equals("students")) {
                     for_student stud = new for_student();
                     stud.setVisible(true);
+                    student.displaystudentInfo();
                     dispose();
                 }
-                if (mode.equals("teachers")) {
+                if(mode.equals("teachers")) {
                     Students stud = new Students();
                     stud.setVisible(true);
+                    student.displaystudentInfo();
                     dispose();
                 }
-                if (mode.equals("admin")) {
+                if(mode.equals("admin")) {
                     Students stud = new Students();
                     stud.setVisible(true);
+                    student.displaystudentInfo();
                     dispose();
                 }
             }

@@ -47,6 +47,7 @@ public class login_page extends JFrame {
             }
         });
     }
+  
 
     public login_page() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +92,7 @@ public class login_page extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String emailText = emailField.getText(); 
                 String PasswordText = new String(passwordField.getPassword()); 
-                selectMode = (String) comboBox.getSelectedItem(); 
+                String selectMode = (String)comboBox.getSelectedItem(); 
                 if (emailText.isEmpty() || PasswordText.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Please fill up all the fields to sign up.");
                     return;
@@ -215,7 +216,7 @@ public class login_page extends JFrame {
     }
     
     public static String comboVal() {
-        String userType = (String) comboBox.getSelectedItem();
+        String userType =(String)comboBox.getSelectedItem();
         return userType;
     }
 
