@@ -201,6 +201,7 @@ public class for_dashboard extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
+                dispose();
             }
         });
 

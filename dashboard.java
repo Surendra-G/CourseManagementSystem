@@ -225,6 +225,7 @@ public class dashboard extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
+                dispose();
             }
         });
 
@@ -299,7 +300,9 @@ public class dashboard extends JFrame {
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
         for_Teacher.add(lblNewLabel_2);
         
-        JLabel count_teacher = new JLabel("0");
+        
+        String totalteacher = login_page.countTeacher();
+        JLabel count_teacher = new JLabel(totalteacher);
         count_teacher.setFont(new Font("Tahoma", Font.BOLD, 20));
         count_teacher.setBounds(59, 60, 45, 25);
         for_Teacher.add(count_teacher);
@@ -310,7 +313,9 @@ public class dashboard extends JFrame {
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         for_student.add(lblNewLabel_1);
         
-        JLabel count_student = new JLabel("0");
+        
+        String totalstudent = login_page.countStudents();
+        JLabel count_student = new JLabel(totalstudent);
         count_student.setFont(new Font("Tahoma", Font.BOLD, 20));
         count_student.setBounds(53, 54, 52, 41);
         for_student.add(count_student);

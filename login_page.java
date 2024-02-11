@@ -99,8 +99,7 @@ public class login_page extends JFrame {
                     return;
                 }
                 if (selectMode == "students" || selectMode == "admin" || selectMode == "teachers" ) {
-                    JOptionPane.showMessageDialog(null, "Sign Up success");
-                    
+                    	System.out.println("UserType: "+selectMode);
                 }else {
                     JOptionPane.showMessageDialog(null, "Please Select the Mode");
                     return;
@@ -243,6 +242,42 @@ public class login_page extends JFrame {
             ex.printStackTrace();
         }
         return firstName;
+    }
+    
+    public static String countTeacher() {
+        int totalTeacher = 0;
+        try (Connection connection = database.getConnection()) {
+            String query = "SELECT COUNT(*) AS totalTeachers FROM Teachers";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        totalTeacher = resultSet.getInt("totalTeachers");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return String.valueOf(totalTeacher);
+    }
+
+    
+    
+    public static String  countStudents() {
+    	int totalStudents = 0;
+        try (Connection connection = database.getConnection()) {
+            String query = "SELECT COUNT(*) AS totalStudents FROM Students";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                    	totalStudents = resultSet.getInt("totalStudents");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return String.valueOf(totalStudents);
     }
 
 

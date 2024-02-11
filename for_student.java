@@ -238,6 +238,7 @@ public class for_student extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
+                dispose();
             }
         });
 

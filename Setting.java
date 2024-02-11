@@ -209,6 +209,7 @@ public class Setting extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 login_page login = new login_page();
                 login.setVisible(true);
+                dispose();
             }
         });
 
@@ -326,8 +327,8 @@ public class Setting extends JFrame {
         new_passwordfield.setBounds(416, 250, 179, 28);
         contentPanel.add(new_passwordfield);
         
-        JButton btnNewButton = new JButton("Edit Profile");
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton editbutton = new JButton("Edit Profile");
+        editbutton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String firstNameText = setting_fname.getText();
 		        String lastNameText = setting_lname.getText();
@@ -396,10 +397,10 @@ public class Setting extends JFrame {
 
         	}
         });
-        btnNewButton.setForeground(SystemColor.window);
-        btnNewButton.setBackground(SystemColor.desktop);
-        btnNewButton.setBounds(250, 179, 108, 25);
-        contentPanel.add(btnNewButton);
+        editbutton.setForeground(SystemColor.window);
+        editbutton.setBackground(SystemColor.desktop);
+        editbutton.setBounds(250, 179, 108, 25);
+        contentPanel.add(editbutton);
         
         JButton change_password = new JButton("Change Password");
         change_password.addActionListener(new ActionListener() {
