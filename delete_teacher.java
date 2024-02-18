@@ -92,13 +92,25 @@ public class delete_teacher extends JFrame {
             }
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton.setBounds(243, 218, 113, 33);
+        btnNewButton.setBounds(186, 218, 113, 33);
         contentPane.add(btnNewButton);
         
         deleteteacher_ID = new JTextField();
         deleteteacher_ID.setBounds(227, 148, 169, 33);
         contentPane.add(deleteteacher_ID);
         deleteteacher_ID.setColumns(10);
+        
+        JButton btnCancel = new JButton("Cancel");
+        btnCancel.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Teachers at = new Teachers();
+        		at.setVisible(true);
+        		dispose();
+        	}
+        });
+        btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        btnCancel.setBounds(328, 218, 113, 33);
+        contentPane.add(btnCancel);
     }
 
 }

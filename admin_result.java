@@ -334,7 +334,10 @@ public class admin_result extends JFrame {
         JButton btnDeleteResult = new JButton("Delete");
         btnDeleteResult.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        	}
+        		deleteResult dr = new deleteResult();
+        		dr.setVisible(true);
+        		dispose();
+        		}
         });
         btnDeleteResult.setBounds(564, 80, 75, 30);
         contentPanel.add(btnDeleteResult);

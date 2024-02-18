@@ -98,7 +98,7 @@ public class delete_admin extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(243, 218, 113, 33);
+		btnNewButton.setBounds(184, 220, 113, 33);
 		contentPane.add(btnNewButton);
 		
 		deleteadmin_ID = new JTextField();
@@ -106,7 +106,18 @@ public class delete_admin extends JFrame {
 		contentPane.add(deleteadmin_ID);
 		deleteadmin_ID.setColumns(10);
 		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Admin ad = new Admin();
+				ad.setVisible(true);
+				dispose();
+			}
+		});
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancel.setBounds(324, 220, 113, 33);
+		contentPane.add(btnCancel);
+		
 		
 	}
-
 }
