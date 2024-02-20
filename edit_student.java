@@ -180,7 +180,7 @@ public class edit_student extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(342, 330, 134, 42);
+		btnNewButton.setBounds(301, 328, 134, 42);
 		contentPane.add(btnNewButton);
 		
 		editstudent_fname = new JTextField();
@@ -222,6 +222,18 @@ public class edit_student extends JFrame {
 		editstudent_ID.setColumns(10);
 		editstudent_ID.setBounds(576, 210, 96, 32);
 		contentPane.add(editstudent_ID);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Students stud = new Students();
+				stud.setVisible(true);
+				dispose();
+			}
+		});
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancel.setBounds(474, 328, 134, 42);
+		contentPane.add(btnCancel);
 	}
 
 }

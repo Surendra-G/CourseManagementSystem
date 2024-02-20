@@ -181,7 +181,7 @@ public class edit_admin extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(342, 330, 134, 42);
+		btnNewButton.setBounds(292, 330, 134, 42);
 		contentPane.add(btnNewButton);
 		
 		
@@ -224,6 +224,18 @@ public class edit_admin extends JFrame {
 		editadmin_ID.setColumns(10);
 		editadmin_ID.setBounds(577, 210, 87, 31);
 		contentPane.add(editadmin_ID);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Admin ad = new Admin();
+				ad.setVisible(true);
+				dispose();
+			}
+		});
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancel.setBounds(480, 330, 134, 42);
+		contentPane.add(btnCancel);
 		
 		
 	}

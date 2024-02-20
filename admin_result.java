@@ -312,6 +312,9 @@ public class admin_result extends JFrame {
         JButton btnViewReport = new JButton("Edit");
         btnViewReport.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		edit_result er = new edit_result();
+        		er.setVisible(true);
+        		dispose();
         	}
         });
         btnViewReport.setBounds(494, 80, 70, 30);

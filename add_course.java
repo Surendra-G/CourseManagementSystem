@@ -143,7 +143,7 @@ public class add_course extends JFrame {
             }
         });
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        btnNewButton.setBounds(331, 322, 134, 42);
+        btnNewButton.setBounds(325, 322, 134, 42);
         contentPane.add(btnNewButton);
         
         addcourse_module = new JTextField();

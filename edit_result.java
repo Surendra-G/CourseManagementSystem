@@ -45,6 +45,7 @@ public class edit_result extends JFrame {
 	 * Create the frame.
 	 */
 	public edit_result() {
+		String mode = login_page.selectMode;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 779, 503);
 		setLocationRelativeTo(null);
@@ -104,10 +105,9 @@ public class edit_result extends JFrame {
                 
              // Course added successfully
                 JOptionPane.showMessageDialog(null, "Result Updated Successfully");
-                dispose();
                 admin_result resforteach = new admin_result();
                 resforteach.setVisible(true);
-
+                dispose();
                 // Insert course into database
                 try (Connection connection = database.getConnection()) { 
                 	String updateUserQuery = "UPDATE result SET Module = ?, CourseName = ?, Marks = ? WHERE ID = ?";
@@ -126,7 +126,7 @@ public class edit_result extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(322, 361, 134, 42);
+		btnNewButton.setBounds(274, 361, 134, 42);
 		contentPane.add(btnNewButton);
 		
 		
@@ -162,6 +162,18 @@ public class edit_result extends JFrame {
 		editresult_marks.setColumns(10);
 		editresult_marks.setBounds(279, 290, 224, 28);
 		contentPane.add(editresult_marks);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				admin_result resforteach = new admin_result();
+                resforteach.setVisible(true);
+                dispose();
+			}
+		});
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCancel.setBounds(459, 361, 134, 42);
+		contentPane.add(btnCancel);
 		
 		
 	}
